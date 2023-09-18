@@ -1,8 +1,4 @@
-import { useState } from "react";
-
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatem quas
