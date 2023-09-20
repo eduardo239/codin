@@ -1,9 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navigation = () => {
   return (
-    <nav>
+    <nav className="navigation-container">
       <ul>
         <li>
           <Link to="/">Home</Link>
@@ -15,7 +15,13 @@ const Navigation = () => {
           <Link to="/profile">Profile</Link>
         </li>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/add-challenge">Add Challenge</Link>
+        </li>
+        <li>
+          <Link to="/challenge?id=1">Challenge 1</Link>
+        </li>
+        <li>
+          <Link to="/challenges">All Challenges</Link>
         </li>
       </ul>
     </nav>
