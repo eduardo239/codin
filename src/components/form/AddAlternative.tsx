@@ -36,7 +36,7 @@ const AddAlternative = ({
           </label>
         </div>
 
-        <div>
+        <div className="flex-1">
           <input
             type="text"
             className="input"

@@ -3,7 +3,14 @@ import Input from "../components/form/Input";
 import Textarea from "../components/form/Textarea";
 import Checkbox from "../components/form/Checkbox";
 import Button from "../components/form/Button";
-import { MdLan, MdLanguage, MdSave, MdTitle } from "react-icons/md";
+import {
+  MdLan,
+  MdLanguage,
+  MdNewReleases,
+  MdSave,
+  MdTimer,
+  MdTitle,
+} from "react-icons/md";
 import AddAlternative from "../components/form/AddAlternative";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { db } from "../helpers/firebase";
@@ -33,10 +40,11 @@ b = temp;
 `;
 
 const AddChallenge = () => {
-  const [title, setTitle] = useState("Qual é a resposta?");
-  const [language, setLanguage] = useState("java");
+  const [title, setTitle] = useState<string | number>("Qual é a resposta?");
+  const [language, setLanguage] = useState<string | number>("java");
   const [code, setCode] = useState(js);
-  const [difficulty, setDifficulty] = useState("0.5");
+  const [difficulty, setDifficulty] = useState<string | number>("0.5");
+  const [timer, setTimer] = useState<string | number>(300);
 
   const [a1, setA1] = useState("teste 1");
   const [a2, setA2] = useState("teste 2");
@@ -53,8 +61,9 @@ const AddChallenge = () => {
       title,
       language,
       code,
-      difficulty: parseFloat(difficulty),
+      difficulty: +difficulty,
       alternatives,
+      timer,
     });
     console.log("Document written with ID: ", queRef.id);
 
@@ -84,7 +93,9 @@ const AddChallenge = () => {
           value={language}
           setState={setLanguage}
         />
-        <Textarea label="Código" value={code} setState={setCode} />
+
+        <Textarea rows={20} label="Código" value={code} setState={setCode} />
+
         <Input
           icon={<MdSave />}
           label="Selecione a dificuldade"
@@ -92,9 +103,18 @@ const AddChallenge = () => {
           setState={setDifficulty}
         />
 
+        <Input
+          type="number"
+          icon={<MdTimer />}
+          label="Selecione o tempo em segundos"
+          value={timer}
+          setState={setTimer}
+        />
+
         <div>
           <small>Selecione as alternativas e a resposta correta</small>
         </div>
+
         <AddAlternative
           name="correct"
           index={1}
@@ -143,7 +163,9 @@ const AddChallenge = () => {
         />
         <p>Resposta Correta Selecionada: {correct}</p>
         <hr />
-        <Button type="submit">Salvar</Button>
+        <Button icon={<MdNewReleases />} type="submit">
+          Salvar
+        </Button>
       </form>
     </div>
   );

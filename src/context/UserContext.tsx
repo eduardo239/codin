@@ -1,29 +1,32 @@
 import React from "react";
 
 type FirebaseUser = {
-  kind: string;
-  users: [
+  uid: string;
+  email: string;
+  emailVerified: boolean;
+  isAnonymous: boolean;
+  providerData: [
     {
-      localId: string;
+      providerId: string;
+      uid: string;
+      displayName: string | null;
       email: string;
-      passwordHash: string;
-      emailVerified: false;
-      passwordUpdatedAt: number;
-      providerUserInfo: [
-        {
-          providerId: string;
-          federatedId: string;
-          email: string;
-          rawId: string;
-        }
-      ];
-      validSince: string;
-      lastLoginAt: string;
-      createdAt: string;
-      lastRefreshAt: string;
+      phoneNumber: null;
+      photoURL: string | null;
     }
   ];
+  stsTokenManager: {
+    refreshToken: string;
+    accessToken: string;
+    expirationTime: number;
+  };
+
+  createdAt: number;
+  lastLoginAt: number;
+  apiKey: string;
+  appName: string;
 };
+
 type IUserContext = {
   user: null | FirebaseUser;
   setUser: React.Dispatch<React.SetStateAction<null | FirebaseUser>>;

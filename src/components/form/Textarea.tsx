@@ -5,6 +5,7 @@ type InputProps = React.ComponentProps<"textarea"> & {
   label: string;
   value: string;
   type?: string;
+  rows?: number | undefined;
   setState: React.Dispatch<SetStateAction<string>>;
 };
 
@@ -13,6 +14,7 @@ const Textarea = ({
   label,
   id,
   value,
+  rows,
   setState,
   ...args
 }: InputProps) => {
@@ -23,7 +25,7 @@ const Textarea = ({
       </label>
 
       <textarea
-        rows={10}
+        rows={rows ? rows : 10}
         className="textarea"
         id={id}
         value={value}

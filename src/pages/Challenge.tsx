@@ -4,6 +4,8 @@ import { useQuery } from "../helpers/helper";
 import CodeHighlighter from "../components/code/CodeHighlighter";
 import {
   DocumentData,
+  Timestamp,
+  addDoc,
   collection,
   doc,
   getDoc,
@@ -14,21 +16,27 @@ import {
 import { db } from "../helpers/firebase";
 import Alternative from "../components/form/Alternative";
 import Button from "../components/form/Button";
+import Timer from "../components/code/Timer";
+import { MdSend } from "react-icons/md";
+import { useUser } from "../context/UserContext";
 
 const Challenge = () => {
+  const { user } = useUser();
+
   const query_ = useQuery();
 
   const [question, setQuestion] = useState<DocumentData | null>(null);
   const [selectedOption, setSelectedOption] = useState("");
   const [code, setCode] = useState<string>(``);
   const [correct, setCorrect] = useState<null | boolean>(null);
+  const [timer, setTimer] = useState<number>(300);
 
   const getData = async (id: string) => {
     const docRef = doc(db, "question", id);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      setQuestion(docSnap.data());
+      setQuestion({ id: docSnap.id, ...docSnap.data() });
       setCode(`${docSnap.data().code}`);
     } else {
       // docSnap.data() will be undefined in this case
@@ -46,7 +54,23 @@ const Challenge = () => {
       querySnapshot.forEach((doc) => {
         const c = parseInt(selectedOption) === doc.data().correct;
         setCorrect(c);
+        saveUserAnswer(c);
       });
+    }
+  };
+
+  const saveUserAnswer = async (c: boolean) => {
+    if (user && question) {
+      const queRef = await addDoc(collection(db, "user_answers"), {
+        correct: c,
+        userId: user.uid,
+        alternative: selectedOption,
+        timestamp: Timestamp.now(),
+        questionId: question.id,
+        timer,
+        totalTimer: question.timer,
+      });
+      console.log("Document written with ID: ", queRef.id);
     }
   };
 
@@ -67,8 +91,11 @@ const Challenge = () => {
         <p>Language: {question.language}</p>
         <hr />
         <CodeHighlighter code={code} language={question.language} />
+
         <hr />
-        <h3>Alternativas:</h3>
+        <Timer timer={timer} setTimer={setTimer} />
+        <hr />
+        <p>Alternativas:</p>
         {question.alternatives.map((q: string, i: number) => (
           <div key={q}>
             <Alternative
@@ -83,7 +110,9 @@ const Challenge = () => {
         ))}
         <p>Resposta Selecionada: {selectedOption}</p>
 
-        <Button onClick={handleSubmit}>Submit</Button>
+        <Button icon={<MdSend />} onClick={handleSubmit}>
+          Submit
+        </Button>
 
         <br />
         {correct != null && (

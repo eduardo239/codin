@@ -3,7 +3,25 @@
 *** (C) ZACH COLE 2016
 **/
 
-/* TYPOGRAPHY */
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+.flex-1 {
+  flex: 1;
+}
+.justify-center {
+  justify-content: center;
+}
+.align-center {
+  align-items: center;
+}
+.flex-center-center {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
 
 /* POSITIONING */
 

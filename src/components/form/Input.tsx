@@ -5,7 +5,7 @@ type InputProps = React.ComponentProps<"input"> & {
   label: string;
   type?: string;
   value: string | number;
-  setState: React.Dispatch<SetStateAction<string>>;
+  setState: React.Dispatch<SetStateAction<string | number>>;
   icon?: React.ReactNode | undefined;
 };
 
