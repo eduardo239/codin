@@ -77,12 +77,14 @@ const Profile = () => {
   useEffect(() => {
     getAllDocs();
     return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   useEffect(() => {
     setUserCorrectAnswers(sumAllCorrectAnswers());
     setUserAverageTime(averageTime());
     return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userAnswers]);
 
   return (

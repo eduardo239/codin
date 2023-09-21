@@ -30,10 +30,9 @@ const Auth = () => {
     } else alert("login error");
   };
 
-  useEffect(() => {
-    return () => {};
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   return () => {};
+  // }, []);
 
   return (
     <div className="flex-center-center">

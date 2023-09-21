@@ -79,7 +79,7 @@ const Challenge = () => {
     if (q) getData(q);
 
     return () => {};
-  }, [query]);
+  }, [query_]);
 
   if (question)
     return (

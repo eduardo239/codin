@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 const Timer = ({
   timer,
@@ -15,6 +15,7 @@ const Timer = ({
     const intervalId = setInterval(tick, 1000);
 
     return () => clearInterval(intervalId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -13,7 +13,7 @@ import AllChallenges from "./AllChallenges";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function App() {
-  const { setUser, user } = useUser();
+  const { setUser } = useUser();
 
   const [local, setLocal] = useLocalStorage("user", "");
 
@@ -30,6 +30,7 @@ function App() {
   useEffect(() => {
     getUser();
     return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
