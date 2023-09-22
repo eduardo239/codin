@@ -1,6 +1,12 @@
 import React from "react";
+import { getAllDocs } from "../helpers";
 
-const DataContext = React.createContext<null>(null);
+type TData = {
+  totalChallenges: number;
+  setTotalChallenges: React.Dispatch<React.SetStateAction<number>>;
+};
+
+const DataContext = React.createContext<null | TData>(null);
 
 export const useUser = () => {
   const context = React.useContext(DataContext);
@@ -9,14 +15,22 @@ export const useUser = () => {
 };
 
 export const DataProvider = ({ children }: React.PropsWithChildren) => {
-  const [data, setData] = React.useState<null>(null);
+  const [totalChallenges, setTotalChallenges] = React.useState<number>(0);
+
+  const getAllQuestions = async () => {
+    const response = await getAllDocs("");
+    setTotalChallenges(response.length);
+  };
 
   React.useEffect(() => {
+    getAllQuestions();
     return () => {};
   }, []);
 
+  console.log(totalChallenges);
+
   return (
-    <DataContext.Provider value={{ data, setData }}>
+    <DataContext.Provider value={{ totalChallenges, setTotalChallenges }}>
       {children}
     </DataContext.Provider>
   );

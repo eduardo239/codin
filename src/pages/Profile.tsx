@@ -94,19 +94,32 @@ const Profile = () => {
 
       <hr />
 
-      <Progress
-        title={`Respostas Corretas: ${userCorrectAnswers}`}
-        value={userCorrectAnswers / userTotalAnswers}
-      />
+      {userCorrectAnswers ? (
+        <Progress
+          title={`Respostas Corretas: ${userCorrectAnswers}`}
+          value={userCorrectAnswers / userTotalAnswers}
+        />
+      ) : (
+        <p>Carregando ...</p>
+      )}
 
-      <Progress
-        title={`Questões Finalizadas: ${userTotalAnswers}`}
-        value={userTotalAnswers / totalQuestions}
-      />
-      <Progress
-        title={`Tempo médio ${userAverageTime} segundos.`}
-        value={userAverageTime / 100}
-      />
+      {userTotalAnswers && totalQuestions ? (
+        <Progress
+          title={`Questões Finalizadas: ${userTotalAnswers}`}
+          value={userTotalAnswers / totalQuestions}
+        />
+      ) : (
+        <p>Carregando ...</p>
+      )}
+
+      {userAverageTime ? (
+        <Progress
+          title={`Tempo médio ${userAverageTime} segundos.`}
+          value={userAverageTime / 100}
+        />
+      ) : (
+        <p>Carregando ...</p>
+      )}
     </div>
   );
 };
