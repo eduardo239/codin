@@ -89,8 +89,12 @@ const Profile = () => {
 
   return (
     <div>
-      <h1>Profile: user.user</h1>
-      <p>A passagem do Lorem Ipsum usada desde 1500</p>
+      <h1>Perfil</h1>
+      <p>
+        {user?.displayName
+          ? user.displayName
+          : "Usuário-" + Math.round(Math.random() * 9999).toString()}
+      </p>
 
       <hr />
 
