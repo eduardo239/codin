@@ -1,17 +1,14 @@
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../form/Button";
 import { logoutUser } from "../../helpers";
 import { useUser } from "../../context/UserContext";
 import {
   MdAccountBox,
-  MdAllInbox,
   MdHome,
   MdList,
   MdLogin,
-  MdLogout,
+  MdOutlineLogout,
   MdPlusOne,
-  MdSelectAll,
 } from "react-icons/md";
 
 const Navigation = () => {
@@ -62,7 +59,7 @@ const Navigation = () => {
         </li>
         {user && (
           <li>
-            <Button icon={<MdLogout />} onClick={handleLogout}></Button>
+            <Button icon={<MdOutlineLogout />} onClick={handleLogout}></Button>
           </li>
         )}
       </ul>

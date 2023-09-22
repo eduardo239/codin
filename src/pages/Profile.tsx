@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Progress from "../components/ui/Progress";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../helpers/firebase";
@@ -91,13 +91,13 @@ const Profile = () => {
     <div>
       <h1>Profile: user.user</h1>
       <p>A passagem do Lorem Ipsum usada desde 1500</p>
+
       <hr />
-      {userCorrectAnswers && userTotalAnswers && (
-        <Progress
-          title={`Respostas Corretas: ${userCorrectAnswers}`}
-          value={userCorrectAnswers / userTotalAnswers}
-        />
-      )}
+
+      <Progress
+        title={`Respostas Corretas: ${userCorrectAnswers}`}
+        value={userCorrectAnswers / userTotalAnswers}
+      />
 
       <Progress
         title={`Questões Finalizadas: ${userTotalAnswers}`}

@@ -1,5 +1,4 @@
 import React, { SetStateAction } from "react";
-import { MdSave } from "react-icons/md";
 
 type InputProps = React.ComponentProps<"textarea"> & {
   label: string;

@@ -1,5 +1,4 @@
 import React, { SetStateAction } from "react";
-import { IconType } from "react-icons";
 
 type InputProps = React.ComponentProps<"input"> & {
   label: string;

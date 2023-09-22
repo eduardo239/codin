@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Auth from "./Auth";
 import { useUser } from "../context/UserContext";
 import useLocalStorage from "../hooks/useLocalStorage";

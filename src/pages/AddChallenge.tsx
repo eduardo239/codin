@@ -1,43 +1,18 @@
 import React, { useState } from "react";
 import Input from "../components/form/Input";
 import Textarea from "../components/form/Textarea";
-import Checkbox from "../components/form/Checkbox";
 import Button from "../components/form/Button";
 import {
-  MdLan,
-  MdLanguage,
-  MdNewReleases,
-  MdSave,
-  MdTimer,
-  MdTitle,
+  MdOutlineLanguage,
+  MdOutlineNewReleases,
+  MdOutlineSave,
+  MdOutlineTimer,
+  MdOutlineTitle,
 } from "react-icons/md";
 import AddAlternative from "../components/form/AddAlternative";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { db } from "../helpers/firebase";
-
-type Answer = {
-  id: number;
-  content: string;
-};
-
-const c = `for(initialization; condition; increment/decrement){    
-//statement or code to be executed    
-}    `;
-
-const js = `//JavaScript program to swap two variables
-
-//take input from the users
-let a = prompt('Enter the first variable: ');
-let b = prompt('Enter the second variable: ');
-
-//create a temporary variable
-let temp;
-
-//swap variables
-temp = a;
-a = b;
-b = temp;
-`;
+import { js } from "../helpers/code";
 
 const AddChallenge = () => {
   const [title, setTitle] = useState<string | number>("Qual é a resposta?");
@@ -82,13 +57,13 @@ const AddChallenge = () => {
 
       <form onSubmit={handleSubmit}>
         <Input
-          icon={<MdTitle />}
+          icon={<MdOutlineTitle />}
           label="Title"
           value={title}
           setState={setTitle}
         />
         <Input
-          icon={<MdLanguage />}
+          icon={<MdOutlineLanguage />}
           label="Linguagem"
           value={language}
           setState={setLanguage}
@@ -97,7 +72,7 @@ const AddChallenge = () => {
         <Textarea rows={20} label="Código" value={code} setState={setCode} />
 
         <Input
-          icon={<MdSave />}
+          icon={<MdOutlineSave />}
           label="Selecione a dificuldade"
           value={difficulty}
           setState={setDifficulty}
@@ -105,7 +80,7 @@ const AddChallenge = () => {
 
         <Input
           type="number"
-          icon={<MdTimer />}
+          icon={<MdOutlineTimer />}
           label="Selecione o tempo em segundos"
           value={timer}
           setState={setTimer}
@@ -163,7 +138,7 @@ const AddChallenge = () => {
         />
         <p>Resposta Correta Selecionada: {correct}</p>
         <hr />
-        <Button icon={<MdNewReleases />} type="submit">
+        <Button icon={<MdOutlineNewReleases />} type="submit">
           Salvar
         </Button>
       </form>

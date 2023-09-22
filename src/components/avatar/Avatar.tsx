@@ -15,7 +15,7 @@ const Avatar = () => {
       </div>
 
       <p className="center padding-md">
-        <small>{user && user.email}</small>
+        <small>{user && user.email?.split("@")[0].slice(0, 10) + "..."}</small>
       </p>
     </div>
   );

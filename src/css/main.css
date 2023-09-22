@@ -125,15 +125,20 @@ textarea {
   gap: 10px;
   flex-shrink: 0;
 
-  background: var(--color_pri);
-  color: var(--color_dar);
-
   font-family: var(--font);
   font-size: 15px;
   font-style: normal;
   font-weight: 600;
   line-height: 120%; /* 19.2px */
   letter-spacing: 0.24px;
+}
+.btn-primary {
+  background: var(--color_pri);
+  color: var(--color_dar);
+}
+.btn-secondary {
+  background-color: var(--color_sec);
+  color: var(--color_lig);
 }
 .btn-full {
   width: 100%;
@@ -234,6 +239,14 @@ input[type="radio"] {
   display: grid;
   justify-content: center;
 }
+
+@media only screen and (max-width: 720px) {
+  .navigation-container ul {
+    display: flex;
+    align-items: center;
+  }
+}
+
 .navigation-container ul li a {
   padding: var(--padding-md);
   justify-content: center;
@@ -245,12 +258,17 @@ input[type="radio"] {
   color: var(--color_pri);
 }
 .navigation-container ul li a svg {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
 }
 /*  */
 .logo {
   padding: var(--padding-lg);
+}
+@media only screen and (max-width: 720px) {
+  .logo {
+    width: 200px;
+  }
 }
 .logo:hover {
   cursor: pointer;
@@ -269,6 +287,11 @@ input[type="radio"] {
   justify-content: center;
   align-items: center;
   gap: var(--padding-lg);
+}
+@media only screen and (max-width: 720px) {
+  .aside {
+    gap: var(--padding-sm);
+  }
 }
 .avatar {
   border: 3px solid var(--color_pri);

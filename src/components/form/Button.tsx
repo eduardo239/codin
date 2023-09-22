@@ -1,5 +1,4 @@
 import React from "react";
-import { MdSave } from "react-icons/md";
 
 type ButtonProps = {
   full?: boolean;
@@ -17,17 +16,15 @@ const Button = ({
   ...args
 }: React.PropsWithChildren & ButtonProps) => {
   return (
-    <div>
-      <button
-        type={type}
-        onClick={onClick}
-        className={`btn ${full ? "btn-full" : ""}`}
-        {...args}
-      >
-        {icon}
-        {children}
-      </button>
-    </div>
+    <button
+      type={type}
+      onClick={onClick}
+      className={`btn btn-primary ${full ? "btn-full" : ""}`}
+      {...args}
+    >
+      {icon}
+      {children}
+    </button>
   );
 };
 

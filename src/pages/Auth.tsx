@@ -1,20 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { userLogin, userRegister } from "../helpers";
 import Input from "../components/form/Input";
 import Button from "../components/form/Button";
 import { useUser } from "../context/UserContext";
 import useLocalStorage from "../hooks/useLocalStorage";
+import { MdOutlineAccountCircle, MdOutlineBook } from "react-icons/md";
 
 const Auth = () => {
-  const { setUser, user } = useUser();
-  const [local, setLocal] = useLocalStorage("user", "");
+  const { setUser } = useUser();
+  const [, setLocal] = useLocalStorage("user", "");
 
   const [email, setEmail] = useState<string | number>("");
   const [password, setPassword] = useState<string | number>("");
 
   const registerNewUser = async () => {
-    const user = { email: email, password };
-    const response = await userRegister(user);
+    const isEmailString = typeof email === "string";
+    const isPasswordString = typeof password === "string";
+    const response = await userRegister({
+      email: isEmailString ? email : email.toString(),
+      password: isPasswordString ? password : password.toString(),
+    });
     if (response) {
       setUser(response);
       setLocal(JSON.stringify(response));
@@ -22,17 +27,18 @@ const Auth = () => {
   };
 
   const loginUser = async () => {
-    const user = { email, password };
+    const isEmailString = typeof email === "string";
+    const isPasswordString = typeof password === "string";
+    const user = {
+      email: isEmailString ? email : email.toString(),
+      password: isPasswordString ? password : password.toString(),
+    };
     const response = await userLogin(user);
     if (response) {
       setUser(response);
       setLocal(JSON.stringify(response));
     } else alert("login error");
   };
-
-  // useEffect(() => {
-  //   return () => {};
-  // }, []);
 
   return (
     <div className="flex-center-center">
@@ -54,7 +60,7 @@ const Auth = () => {
           id="register-password"
         />
 
-        <Button full onClick={registerNewUser}>
+        <Button icon={<MdOutlineBook />} full onClick={registerNewUser}>
           Submit
         </Button>
       </div>
@@ -77,7 +83,7 @@ const Auth = () => {
           id="login-password"
         />
 
-        <Button full onClick={loginUser}>
+        <Button icon={<MdOutlineAccountCircle />} full onClick={loginUser}>
           Submit
         </Button>
       </div>

@@ -1,13 +1,13 @@
 import {
   getAuth,
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  User,
 } from "firebase/auth";
-import { User } from "./type";
+import { TUser } from "./type";
 
-export const userRegister = async (user: User) => {
+export const userRegister = async (user: TUser): Promise<User> => {
   const auth = getAuth();
 
   try {
@@ -18,13 +18,13 @@ export const userRegister = async (user: User) => {
     );
     return response.user;
   } catch (error) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    throw new Error(`${errorCode} - ${errorMessage}`);
+    let message = "Unknown Error";
+    if (error instanceof Error) message = error.message;
+    throw new Error(`${message}`);
   }
 };
 
-export const userLogin = async (user: User) => {
+export const userLogin = async (user: TUser): Promise<User> => {
   const auth = getAuth();
 
   try {
@@ -33,11 +33,13 @@ export const userLogin = async (user: User) => {
       user.email,
       user.password
     );
+    const u: User = response.user;
+
     return response.user;
   } catch (error) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    throw new Error(`${errorCode} - ${errorMessage}`);
+    let message = "Unknown Error";
+    if (error instanceof Error) message = error.message;
+    throw new Error(`${message}`);
   }
 };
 
@@ -48,8 +50,8 @@ export const logoutUser = async () => {
     const response = await signOut(auth);
     window.localStorage.removeItem("user");
   } catch (error) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    throw new Error(`${errorCode} - ${errorMessage}`);
+    let message = "Unknown Error";
+    if (error instanceof Error) message = error.message;
+    throw new Error(`${message}`);
   }
 };
