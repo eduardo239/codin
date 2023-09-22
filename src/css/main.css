@@ -350,6 +350,7 @@ input[type="radio"] {
   margin-bottom: var(--padding-md);
   display: flex;
   justify-content: space-between;
+  font-size: var(--font-small);
 }
 /*  */
 .form {

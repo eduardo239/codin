@@ -1,41 +1,18 @@
 import { useEffect, useState } from "react";
-import { collection, query, getDocs } from "firebase/firestore";
-import { db } from "../helpers/firebase";
 import { Link } from "react-router-dom";
-
-type IQuestion = {
-  id: string;
-  difficulty: number;
-  code: string;
-  title: string;
-  language: string;
-  alternatives: string;
-};
+import { getAllDocs } from "../helpers";
+import { IQuestion } from "../helpers/type";
 
 const AllChallenges = () => {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
 
-  const getAllDocs = async () => {
-    const q = query(collection(db, "question"));
-    const querySnapshot = await getDocs(q);
-    const array: IQuestion[] = [];
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      const dt = {
-        id: doc.id,
-        difficulty: doc.data().difficulty,
-        code: doc.data().code,
-        title: doc.data().title,
-        language: doc.data().language,
-        alternatives: doc.data().alternatives,
-      };
-      array.push(dt);
-    });
-    setQuestions(array);
+  const getAllQuestions = async () => {
+    const response = await getAllDocs("");
+    setQuestions(response);
   };
 
   useEffect(() => {
-    getAllDocs();
+    getAllQuestions();
 
     return () => {};
   }, []);
@@ -43,12 +20,7 @@ const AllChallenges = () => {
   return (
     <div>
       <h1>Todas as Questões</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem maxime,
-        sed accusamus distinctio sit nihil, mollitia totam ea vel aspernatur
-        quia earum nesciunt velit itaque, animi consequatur molestias officia
-        sunt.
-      </p>
+      <p>Aqui você encontra todos os desafios.</p>
 
       <hr />
 
