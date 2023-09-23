@@ -12,3 +12,7 @@ temp = a;
 a = b;
 b = temp;
 `;
+
+export const jsCodeExample = `// This is a JavaScript code example
+console.log("Hello, World!");
+`;

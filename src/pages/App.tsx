@@ -11,6 +11,7 @@ import AddChallenge from "./AddChallenge";
 import Challenge from "./Challenge";
 import AllChallenges from "./AllChallenges";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import Footer from "../components/landing/Footer";
 
 function App() {
   const { setUser } = useUser();
@@ -34,27 +35,30 @@ function App() {
   }, []);
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-2">
-          <Avatar />
-          <hr />
-          <Navigation />
-        </div>
+    <div>
+      <div className="container">
+        <div className="row">
+          <div className="col-2">
+            <Avatar />
+            <hr />
+            <Navigation />
+          </div>
 
-        <div className="col-10">
-          <div className="padding-lg">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/add-challenge" element={<AddChallenge />} />
-              <Route path="/challenge" element={<Challenge />} />
-              <Route path="/challenges" element={<AllChallenges />} />
-            </Routes>
+          <div className="col-10">
+            <div className="padding-lg">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/add-challenge" element={<AddChallenge />} />
+                <Route path="/challenge" element={<Challenge />} />
+                <Route path="/challenges" element={<AllChallenges />} />
+              </Routes>
+            </div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

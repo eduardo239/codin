@@ -4,10 +4,10 @@ import imgLand2 from "../../assets/land/land_2.jpg";
 const Section4 = () => {
   return (
     <div className="grid-2 section">
-      <div>
+      <div className="grid-2_order-1">
         <img className="land-image" src={imgLand1} alt="Codin" />
       </div>
-      <div className="padding-md">
+      <div className="padding-md grid-2_order-2">
         Ao contrário da crença popular, o Lorem Ipsum não é simplesmente texto
         aleatório. Tem raízes numa peça.
       </div>

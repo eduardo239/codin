@@ -22,6 +22,7 @@
   --padding-sm: 4px;
   --padding-md: 10px;
   --padding-lg: 22px;
+  --padding-x: 34px;
 
   --font: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   --font-code: "Roboto Mono", "Courier New", Courier, monospace;
@@ -53,7 +54,18 @@ a:hover {
   text-decoration: none;
   background-color: var(--color_pri);
 }
-
+.dark {
+  color: var(--color_dar);
+}
+.bg-dark {
+  background-color: var(--color_dar);
+}
+.light {
+  color: var(--color_lig);
+}
+.bg-light {
+  background-color: var(--color_lig);
+}
 body {
   min-height: 100vh;
   line-height: 1.5;
@@ -125,7 +137,7 @@ small {
   padding-bottom: 60px;
   padding-right: 20px;
   font-size: 58px;
-  line-height: 65px;
+  line-height: 1.1;
 }
 
 .font-x {
@@ -136,6 +148,31 @@ small {
   font-size: 38px;
   line-height: 44px;
 }
+
+@media only screen and (max-width: 900px) {
+  .font-xxl {
+    font-size: 125px;
+  }
+  .font-xl {
+    font-size: 40px;
+  }
+  .font-x {
+    font-size: 33px;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .font-xxl {
+    font-size: 75px;
+  }
+  .font-xl {
+    font-size: 29px;
+  }
+  .font-x {
+    font-size: 22px;
+  }
+}
+
 b {
   font-weight: 800;
 }
@@ -155,7 +192,7 @@ textarea {
   resize: vertical;
 }
 .btn {
-  display: inline-block;
+  display: inline-flex;
   height: 44px;
   padding: 10px 20px;
   align-items: center;
@@ -374,6 +411,9 @@ input[type="radio"] {
 .padding-lg {
   padding: var(--padding-lg);
 }
+.padding-x {
+  padding: var(--padding-x);
+}
 /*  */
 .code {
   font-family: var(--font-code);
@@ -424,6 +464,11 @@ body::-webkit-scrollbar-track {
   display: flex;
   gap: var(--padding-lg);
 }
+@media only screen and (max-width: 720px) {
+  .node-container {
+    flex-direction: column;
+  }
+}
 .node {
   padding: var(--padding-lg);
   background-color: var(--color_lig);
@@ -452,4 +497,32 @@ body::-webkit-scrollbar-track {
   border-radius: var(--padding-sm);
   border: 1px solid var(--color_lig);
   box-shadow: var(--shadow-1);
+}
+
+.footer {
+  background-color: var(--color_dar);
+  color: var(--color_lig);
+  padding: var(--padding-lg);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin: var(--padding-lg) 0 0 0;
+}
+.footer-menu {
+  margin-top: var(--padding-lg);
+  margin-bottom: var(--padding-lg);
+  display: grid;
+  gap: var(--padding-md);
+}
+.footer-menu li {
+  font-size: var(--font-small);
+}
+@media only screen and (max-width: 900px) {
+  .footer {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media only screen and (max-width: 720px) {
+  .footer {
+    grid-template-columns: 1fr;
+  }
 }

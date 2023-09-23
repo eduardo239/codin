@@ -27,6 +27,22 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
+@media only screen and (max-width: 720px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .grid-2_order-1 {
+    order: 0;
+  }
+  .grid-2_order-2 {
+    order: -1;
+  }
+}
+
 /* POSITIONING */
 
 .left {
