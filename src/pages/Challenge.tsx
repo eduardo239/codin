@@ -99,6 +99,7 @@ const Challenge = () => {
         {question.alternatives.map((q: string, i: number) => (
           <div key={q}>
             <Alternative
+              id={i.toString()}
               name="alternative"
               index={i + 1}
               selectedOption={selectedOption}

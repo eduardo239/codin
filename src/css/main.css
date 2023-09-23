@@ -268,6 +268,9 @@ textarea {
   font-weight: 400;
   line-height: 150%; /* 24px */
 }
+.input:hover {
+  cursor: pointer;
+}
 .input:focus,
 .input:active,
 .textarea:focus,
@@ -290,9 +293,18 @@ textarea {
 
 input[type="radio"] {
   accent-color: var(--color_pri);
-  height: 14px;
-  width: 14px;
+  height: 18px;
+  width: 18px;
   margin: 5px;
+}
+
+.input-field-radio-label {
+  flex: 1;
+  cursor: pointer;
+  padding: var(--padding-md) 0;
+}
+.input-field-radio-label:hover {
+  background-color: var(--color_pri);
 }
 /*  */
 .textarea {

@@ -35,8 +35,8 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <div className="container">
+    <div className="main">
+      <div className="container flex-1">
         <div className="row">
           <div className="col-2">
             <Avatar />

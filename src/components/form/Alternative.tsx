@@ -10,6 +10,7 @@ type IRadioAlternative = React.ComponentProps<"input"> & {
 };
 
 const AddAlternative = ({
+  id,
   name,
   index,
   value,
@@ -20,18 +21,18 @@ const AddAlternative = ({
   return (
     <div className="input-container">
       <div className="input-field">
-        <label>
-          [ {index} ]{" "}
-          <input
-            type="radio"
-            name={name}
-            value={value}
-            checked={value === selectedOption}
-            onChange={(e) => setState(e.currentTarget.value)}
-          />{" "}
+        [ {index} ]{" "}
+        <input
+          id={id}
+          type="radio"
+          name={name}
+          value={value}
+          checked={value === selectedOption}
+          onChange={(e) => setState(e.currentTarget.value)}
+        />{" "}
+        <label className="input-field-radio-label" htmlFor={id}>
+          {textValue}
         </label>
-
-        <span>{textValue}</span>
       </div>
     </div>
   );

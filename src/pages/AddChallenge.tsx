@@ -9,10 +9,15 @@ import {
   MdOutlineTimer,
   MdOutlineTitle,
 } from "react-icons/md";
-import AddAlternative from "../components/form/AddAlternative";
+import AddAlternative from "../components/form/InputAlternative";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../helpers/firebase";
 import { js } from "../helpers/code";
+
+export type TAlternative = {
+  id: number;
+  content: string;
+};
 
 const AddChallenge = () => {
   const [title, setTitle] = useState<string | number>("Qual é a resposta?");
@@ -21,12 +26,35 @@ const AddChallenge = () => {
   const [difficulty, setDifficulty] = useState<string | number>("0.5");
   const [timer, setTimer] = useState<string | number>(300);
 
-  const [a1, setA1] = useState("teste 1");
-  const [a2, setA2] = useState("teste 2");
-  const [a3, setA3] = useState("teste 3");
-  const [a4, setA4] = useState("teste 4");
-  const [a5, setA5] = useState("teste 5");
+  const [a1, setA1] = useState("");
+  const [a2, setA2] = useState("");
+  const [a3, setA3] = useState("");
+  const [a4, setA4] = useState("");
+  const [a5, setA5] = useState("");
   const [correct, setCorrect] = useState("1");
+
+  const [alternative, setAlternative] = useState<TAlternative[]>([
+    {
+      id: 1,
+      content: "1",
+    },
+    {
+      id: 2,
+      content: "2",
+    },
+    {
+      id: 3,
+      content: "3",
+    },
+    {
+      id: 4,
+      content: "4",
+    },
+    {
+      id: 5,
+      content: "5",
+    },
+  ]);
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -89,6 +117,8 @@ const AddChallenge = () => {
         <div>
           <small>Selecione as alternativas e a resposta correta</small>
         </div>
+
+        <hr />
 
         <AddAlternative
           name="correct"
