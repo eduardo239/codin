@@ -19,9 +19,11 @@ import Button from "../components/form/Button";
 import Timer from "../components/code/Timer";
 import { MdSend } from "react-icons/md";
 import { useUser } from "../context/UserContext";
+import { useData } from "../context/DataContext";
 
 const Challenge = () => {
   const { user } = useUser();
+  const { handleMessage } = useData();
 
   const query_ = useQuery();
 
@@ -70,7 +72,8 @@ const Challenge = () => {
         timer,
         totalTimer: question.timer,
       });
-      console.log("Document written with ID: ", queRef.id);
+
+      handleMessage(`Desafio salvo com sucesso, ID: ${queRef.id}`, "error");
     }
   };
 
@@ -84,9 +87,6 @@ const Challenge = () => {
   if (question)
     return (
       <div>
-        <br />
-        <br />
-
         <h2>{question.title}</h2>
         <p>Language: {question.language}</p>
         <hr />
@@ -97,7 +97,7 @@ const Challenge = () => {
         <hr />
         <p>Alternativas:</p>
         {question.alternatives.map((q: string, i: number) => (
-          <div key={q}>
+          <div key={i}>
             <Alternative
               id={i.toString()}
               name="alternative"
@@ -124,7 +124,7 @@ const Challenge = () => {
 
         <hr />
         <small>
-          <code> Challenge: {query_.get("id")}</code>
+          <code> Challenge ID: {query_.get("id")}</code>
         </small>
       </div>
     );

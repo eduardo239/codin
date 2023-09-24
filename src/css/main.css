@@ -14,8 +14,17 @@
   --color_sec_alt: #5549b3;
   --color_pri: #daff4f;
   --color_pri_alt: #c3e647;
-  --color_suc: #51a68e;
+
   --color_suc_alt: #8fb5aa;
+
+  --color_suc: #4caf50;
+  --color_suc_bg: #ddffde;
+  --color_inf: #3366ff;
+  --color_inf_bg: #dce5ff;
+  --color_war: #ffdd33;
+  --color_war_bg: #fff8d5;
+  --color_err: #ff3333;
+  --color_err_bg: #ffe3e3;
 
   --font-small: 14px;
 
@@ -23,6 +32,10 @@
   --padding-md: 10px;
   --padding-lg: 22px;
   --padding-x: 34px;
+
+  --icon-sm: 18px;
+  --icon-md: 24px;
+  --icon-lg: 32px;
 
   --font: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   --font-code: "Roboto Mono", "Courier New", Courier, monospace;
@@ -537,4 +550,48 @@ body::-webkit-scrollbar-track {
   .footer {
     grid-template-columns: 1fr;
   }
+}
+
+/*  */
+.message-container {
+  position: fixed;
+  top: var(--padding-sm);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--padding-md);
+  box-shadow: var(--shadow-3);
+  z-index: 100;
+
+  display: flex;
+  gap: var(--padding-md);
+  align-items: center;
+}
+.message-container svg {
+  width: var(--icon-lg);
+  height: var(--icon-lg);
+}
+.message-container p {
+  font-size: var(--font-small);
+  margin-bottom: var(--padding-sm);
+}
+
+.message-success,
+.message-success p {
+  color: var(--color_suc);
+  background-color: var(--color_suc_bg);
+}
+.message-info,
+.message-info p {
+  color: var(--color_inf);
+  background-color: var(--color_inf_bg);
+}
+.message-warning,
+.message-warning p {
+  color: var(--color_war);
+  background-color: var(--color_war_bg);
+}
+.message-error,
+.message-error p {
+  color: var(--color_err);
+  background-color: var(--color_err_bg);
 }

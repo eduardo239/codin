@@ -11,3 +11,8 @@ export type IQuestion = {
   language: string;
   alternatives: string;
 };
+
+export type TMessage = {
+  message: string;
+  type: "error" | "warning" | "info" | "success";
+};

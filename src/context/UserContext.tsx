@@ -10,7 +10,8 @@ const UserContext = React.createContext<null | IUserContext>(null);
 
 export const useUser = () => {
   const context = React.useContext(UserContext);
-  if (!context) throw new Error("useContext error, Provider");
+  if (!context)
+    throw new Error("useUser deve estar dentro de um UserContext.Provider");
   return context;
 };
 
