@@ -9,7 +9,7 @@ const Hero = () => {
         Junte-se a milhares de pessoas que mudaram suas vidas, de um jeito
         simples.
       </p>
-      <div className="center">
+      <div className="flex-center-center">
         <Button>Cadastre-se - Grátis</Button>
         <Button variant="dark">Cadastre-se - Grátis</Button>
         <Button variant="secondary">Cadastre-se - Grátis</Button>

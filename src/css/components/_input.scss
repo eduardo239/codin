@@ -12,6 +12,10 @@
   input {
     background-color: $color_lig;
   }
+
+  textarea {
+    background-color: $color_lig;
+  }
 }
 
 .input-field {
@@ -31,8 +35,11 @@
   }
 
   .input-alternative {
+    background-color: $color_lig;
     padding: $spacing-md;
     width: 100%;
+    line-height: 1.5;
+    font-size: $font-size-default;
     &:hover {
       cursor: pointer;
     }

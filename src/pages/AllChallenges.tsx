@@ -7,11 +7,10 @@ import { OrderByDirection } from "firebase/firestore";
 
 const AllChallenges = () => {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
-  const [language, setLanguage] = useState("java");
+  const [language, setLanguage] = useState("");
   const [order, setOrder] = useState<OrderByDirection | undefined>("desc");
 
   const [limit, setLimit] = useState(10);
-  console.log(questions);
 
   const getAllQuestions = async () => {
     const response = await getAllDocs(language, order, limit);
@@ -49,6 +48,9 @@ const AllChallenges = () => {
       </div>
       <br />
       <div className="flex gap-1">
+        <Button small onClick={() => setLanguage("")}>
+          All
+        </Button>
         <Button small onClick={() => setLanguage("javascript")}>
           Javascript
         </Button>
@@ -70,7 +72,9 @@ const AllChallenges = () => {
       </div>
 
       <hr />
-      <p>{language + " " + order + " " + limit}</p>
+      <div>
+        <code>Query: {language + " | " + order + " | " + limit}</code>
+      </div>
 
       <hr />
       <div className="flex flex-column">

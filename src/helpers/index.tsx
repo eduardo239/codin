@@ -68,9 +68,9 @@ export const logoutUser = async () => {
 };
 
 export const getAllDocs = async (
-  language: string,
-  order: OrderByDirection | undefined,
-  limitNumber: number
+  language?: string,
+  order?: OrderByDirection | undefined,
+  limitNumber?: number
 ) => {
   let q = null;
   console.log(order, language);
@@ -80,12 +80,20 @@ export const getAllDocs = async (
   // q = query(questionRef, orderBy("timestamp", order), limit(3));
 
   //q = query(questionRef, where("language", "==", language), limit(limitNumber));
-  q = query(
-    questionRef,
-    where("language", "==", language),
-    orderBy("timestamp", order),
-    limit(limitNumber)
-  );
+  if (language) {
+    q = query(
+      questionRef,
+      where("language", "==", language),
+      orderBy("timestamp", order),
+      limit(limitNumber ? limitNumber : 10)
+    );
+  } else {
+    q = query(
+      questionRef,
+      orderBy("timestamp", order),
+      limit(limitNumber ? limitNumber : 10)
+    );
+  }
 
   const querySnapshot = await getDocs(q);
   const array: IQuestion[] = [];

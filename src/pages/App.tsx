@@ -13,9 +13,8 @@ import Challenge from "./Challenge";
 import AllChallenges from "./AllChallenges";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Footer from "../components/landing/Footer";
-import { MdOutline10K, MdOutlineClose } from "react-icons/md";
-import Button from "../components/form/Button";
 import GridMain from "../components/layout/GridMain";
+import Message from "../components/ui/Message";
 
 function App() {
   const { setUser } = useUser();
@@ -41,30 +40,7 @@ function App() {
 
   return (
     <GridMain>
-      {message && (
-        <div
-          className={`message-container ${
-            message.type === "success"
-              ? "message-success "
-              : message.type === "info"
-              ? "message-info"
-              : message.type === "error"
-              ? "message-error"
-              : message.type === "warning"
-              ? "message-warning"
-              : ""
-          }`}
-        >
-          <div>
-            <MdOutline10K />
-          </div>
-          <p>{message.message}</p>
-
-          <div onClick={() => setMessage(null)}>
-            <MdOutlineClose />
-          </div>
-        </div>
-      )}
+      {message && <Message />}
       <div className="container flex-1">
         <div className="row">
           <div className="col-2">

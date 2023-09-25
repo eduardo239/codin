@@ -12,7 +12,7 @@ const CodeHighlighter = ({
     // Find all code blocks with the "hljs" class and apply syntax highlighting
   }, []);
 
-  return <Highlight className="javascript code">{code}</Highlight>;
+  return <Highlight className={`${language} code`}>{code}</Highlight>;
 };
 
 export default CodeHighlighter;

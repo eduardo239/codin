@@ -1,0 +1,24 @@
+.progress-container {
+  background-color: $color-lig;
+  margin-bottom: $spacing-md;
+  padding: $spacing-lg;
+  progress {
+    width: 100%;
+    height: 20px;
+
+    outline: 3px solid $color-dar;
+    border-radius: $spacing-lg;
+  }
+  .progress::-webkit-progress-bar {
+    border-radius: $spacing-lg;
+    background-color: $color-dar;
+  }
+  .progress::-moz-progress-bar {
+    border-radius: $spacing-lg;
+    background-color: $color-dar;
+  }
+  .progress::-webkit-progress-value {
+    border-radius: $spacing-lg;
+    background-color: $color-pri;
+  }
+}

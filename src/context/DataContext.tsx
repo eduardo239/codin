@@ -3,8 +3,6 @@ import { getAllDocs } from "../helpers";
 import { TMessage } from "../helpers/type";
 
 type TData = {
-  totalChallenges: number;
-  setTotalChallenges: React.Dispatch<React.SetStateAction<number>>;
   message: TMessage | null;
   setMessage: React.Dispatch<React.SetStateAction<TMessage | null>>;
   handleMessage: (
@@ -23,7 +21,6 @@ export const useData = () => {
 };
 
 export const DataProvider = ({ children }: React.PropsWithChildren) => {
-  const [totalChallenges, setTotalChallenges] = React.useState<number>(0);
   const [message, setMessage] = React.useState<TMessage | null>(null);
 
   const handleMessage = (
@@ -36,21 +33,13 @@ export const DataProvider = ({ children }: React.PropsWithChildren) => {
     });
   };
 
-  const getTotalQuestions = async () => {
-    const response = await getAllDocs("");
-    setTotalChallenges(response.length);
-  };
-
   React.useEffect(() => {
-    getTotalQuestions();
     return () => {};
   }, []);
 
   return (
     <DataContext.Provider
       value={{
-        totalChallenges,
-        setTotalChallenges,
         message,
         setMessage,
         handleMessage,

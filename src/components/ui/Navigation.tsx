@@ -23,7 +23,7 @@ const Navigation = () => {
   };
 
   return (
-    <ul className="flex-center-center flex-column ">
+    <ul className="navigation">
       <li>
         <Link className="link-icon" to="/">
           <MdHome />

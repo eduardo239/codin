@@ -17,8 +17,8 @@ type TUserAnswers = {
 
 const Profile = () => {
   const { user } = useUser();
-  const [totalQuestions, setTotalQuestions] = useState<number>(15);
 
+  const [totalQuestions, setTotalQuestions] = useState<number>(45);
   const [userAnswers, setUserAnswers] = useState<TUserAnswers[]>([]);
   const [userCorrectAnswers, setUserCorrectAnswers] = useState<number>(0);
   const [userAverageTime, setUserAverageTime] = useState<number>(0);
@@ -118,7 +118,7 @@ const Profile = () => {
 
       {userAverageTime ? (
         <Progress
-          title={`Tempo médio ${userAverageTime} segundos.`}
+          title={`Tempo médio ${userAverageTime.toFixed(2)} segundos.`}
           value={userAverageTime / 100}
         />
       ) : (

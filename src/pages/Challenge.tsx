@@ -74,7 +74,7 @@ const Challenge = () => {
         timestamp: Timestamp.now(),
       });
 
-      handleMessage(`Desafio salvo com sucesso, ID: ${queRef.id}`, "error");
+      handleMessage(`Desafio salvo com sucesso, ID: ${queRef.id}`, "info");
     }
   };
 
@@ -87,7 +87,7 @@ const Challenge = () => {
 
   if (question)
     return (
-      <div>
+      <div style={{ marginTop: "22px" }}>
         <h2>{question.title}</h2>
         <p>Language: {question.language}</p>
 

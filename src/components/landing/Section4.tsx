@@ -3,20 +3,26 @@ import imgLand2 from "../../assets/land/land_2.jpg";
 
 const Section4 = () => {
   return (
-    <div className="grid-2 section">
-      <div className="grid-2_order-1">
-        <img className="land-image" src={imgLand1} alt="Codin" />
-      </div>
-      <div className="padding-md grid-2_order-2">
-        Ao contrário da crença popular, o Lorem Ipsum não é simplesmente texto
-        aleatório. Tem raízes numa peça.
-      </div>
-      <div className="padding-md">
-        Richard, um professor de Latim no Colégio Hampden-Sydney, na Virgínia,
-        procurou uma das palavras em Latim mais obscuras.
-      </div>
-      <div>
-        <img className="land-image" src={imgLand2} alt="" />
+    <div className="section">
+      <div className="grid-2_r_1">
+        <div>
+          <img className="image radius" src={imgLand1} alt="Codin" />
+        </div>
+        <div className="flex-center-center">
+          <p>
+            Ao contrário da crença popular, o Lorem Ipsum não é simplesmente
+            texto aleatório. Tem raízes numa peça.
+          </p>
+        </div>
+        <div className="flex-center-center">
+          <p className="right ">
+            Richard, um professor de Latim no Colégio Hampden-Sydney, na
+            Virgínia, procurou uma das palavras em Latim mais obscuras.
+          </p>
+        </div>
+        <div>
+          <img className="image radius" src={imgLand2} alt="" />
+        </div>
       </div>
     </div>
   );

@@ -42,9 +42,12 @@
 .gap-3 {
   gap: $spacing-lg;
 }
-// @media only screen and (max-width: 720px) {
 
-// }
+.grid-2_r_1 {
+  gap: $spacing-lg;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
 
 /* POSITIONING */
 
@@ -257,26 +260,6 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-}
-.grid-2 {
-  gap: var(--padding-lg);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-@media only screen and (max-width: 720px) {
-  .grid-2 {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media only screen and (max-width: 720px) {
-  .grid-2_order-1 {
-    order: 0;
-  }
-  .grid-2_order-2 {
-    order: -1;
-  }
 }
 
 /* POSITIONING */

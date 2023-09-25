@@ -1,0 +1,39 @@
+.message-container {
+  position: fixed;
+  top: $spacing-md;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: $spacing-lg;
+  z-index: 100;
+  gap: $spacing-md;
+
+  display: flex;
+  align-items: center;
+
+  box-shadow: $shadow-3;
+}
+
+.message-success {
+  background-color: $color_suc-bg;
+  p {
+    color: $color_suc;
+  }
+}
+.message-info {
+  background-color: $color_inf-bg;
+  p {
+    color: $color_inf;
+  }
+}
+.message-warning {
+  background-color: $color_war-bg;
+  p {
+    color: $color_err;
+  }
+}
+.message-error {
+  background-color: $color_err-bg;
+  p {
+    color: $color_err;
+  }
+}

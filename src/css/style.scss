@@ -3,7 +3,6 @@
 @import "abstracts/variables";
 @import "abstracts/colors";
 @import "abstracts/sizes";
-@import "abstracts/media-query";
 
 @import "base/reset";
 @import "base/base";
@@ -16,5 +15,9 @@
 @import "components/button";
 @import "components/input";
 @import "components/form";
+@import "components/message";
+@import "components/progress";
 
 @import "themes/theme";
+
+@import "abstracts/media-query";
