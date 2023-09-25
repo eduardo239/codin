@@ -20,8 +20,9 @@ const Timer = ({
 
   return (
     <>
-      <p>Timer:</p>
-      <p>Tempo restante: {timer} segundos</p>
+      <p>
+        Tempo restante: <b> {timer}</b> segundos
+      </p>
     </>
   );
 };

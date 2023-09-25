@@ -15,6 +15,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Footer from "../components/landing/Footer";
 import { MdOutline10K, MdOutlineClose } from "react-icons/md";
 import Button from "../components/form/Button";
+import GridMain from "../components/layout/GridMain";
 
 function App() {
   const { setUser } = useUser();
@@ -39,7 +40,7 @@ function App() {
   }, []);
 
   return (
-    <div className="main">
+    <GridMain>
       {message && (
         <div
           className={`message-container ${
@@ -68,7 +69,6 @@ function App() {
         <div className="row">
           <div className="col-2">
             <Avatar />
-            <hr />
             <Navigation />
           </div>
 
@@ -87,7 +87,7 @@ function App() {
         </div>
       </div>
       <Footer />
-    </div>
+    </GridMain>
   );
 }
 

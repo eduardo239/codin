@@ -1,0 +1,21 @@
+.footer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  background-color: $color_dar;
+  color: $color_lig;
+
+  padding: 40px $spacing-lg;
+}
+
+.footer-menu {
+  margin-top: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+
+  li,
+  p {
+    font-size: $font-size-sm;
+  }
+}

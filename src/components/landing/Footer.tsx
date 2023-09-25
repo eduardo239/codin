@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Input from "../form/Input";
+import { MdEmail } from "react-icons/md";
 
 const Footer = () => {
   const [email, setEmail] = useState<string | number>("");
@@ -36,11 +37,12 @@ const Footer = () => {
       </div>
       <div>
         <b>Monthly newsletter</b>
-        <p className="light " style={{ marginTop: "1rem" }}>
-          Get pro tips for automating your marketing workflows and be the first
-          to hear about new tools and features:
-        </p>
-        <Input label="Enter your email..." setState={setEmail} value={email} />
+        <div className="footer-menu ">
+          <p className="light">
+            Get pro tips for automating your marketing workflows and be the
+            first to hear about new tools and features:
+          </p>
+        </div>
       </div>
     </div>
   );

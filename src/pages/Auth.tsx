@@ -1,13 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { userLogin, userRegister } from "../helpers";
 import Input from "../components/form/Input";
 import Button from "../components/form/Button";
 import { useUser } from "../context/UserContext";
 import useLocalStorage from "../hooks/useLocalStorage";
-import { MdOutlineAccountCircle, MdOutlineBook } from "react-icons/md";
+import {
+  MdOutlineAccountCircle,
+  MdOutlineBook,
+  MdOutlineEmail,
+  MdOutlinePassword,
+} from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
-  const { setUser } = useUser();
+  const navigate = useNavigate();
+
+  const { user, setUser } = useUser();
   const [, setLocal] = useLocalStorage("user", "");
 
   const [email, setEmail] = useState<string | number>("");
@@ -37,14 +45,24 @@ const Auth = () => {
     if (response) {
       setUser(response);
       setLocal(JSON.stringify(response));
+      navigate("/");
     } else alert("login error");
   };
 
+  useEffect(() => {
+    if (user) navigate("/");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
   return (
-    <div className="flex-center-center">
+    <div className="form-container">
+      <br />
+      <br />
+      <br />
       <div className="form">
         <h2>Registro</h2>
         <Input
+          icon={<MdOutlineEmail />}
           type="email"
           label="E-mail"
           value={email}
@@ -53,6 +71,7 @@ const Auth = () => {
         />
 
         <Input
+          icon={<MdOutlinePassword />}
           type="password"
           label="Password"
           value={password}
@@ -60,14 +79,15 @@ const Auth = () => {
           id="register-password"
         />
 
-        <Button icon={<MdOutlineBook />} full onClick={registerNewUser}>
-          Submit
+        <Button full icon={<MdOutlineBook />} onClick={registerNewUser}>
+          Registrar
         </Button>
       </div>
 
       <div className="form">
         <h2>Entrar</h2>
         <Input
+          icon={<MdOutlineEmail />}
           type="email"
           label="E-mail"
           value={email}
@@ -76,6 +96,7 @@ const Auth = () => {
         />
 
         <Input
+          icon={<MdOutlinePassword />}
           type="password"
           label="Password"
           value={password}
@@ -83,8 +104,8 @@ const Auth = () => {
           id="login-password"
         />
 
-        <Button icon={<MdOutlineAccountCircle />} full onClick={loginUser}>
-          Submit
+        <Button full icon={<MdOutlineAccountCircle />} onClick={loginUser}>
+          Entrar
         </Button>
       </div>
     </div>

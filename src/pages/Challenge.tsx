@@ -11,6 +11,7 @@ import {
   getDoc,
   getDocs,
   query,
+  serverTimestamp,
   where,
 } from "firebase/firestore";
 import { db } from "../helpers/firebase";
@@ -67,10 +68,10 @@ const Challenge = () => {
         correct: c,
         userId: user.uid,
         alternative: selectedOption,
-        timestamp: Timestamp.now(),
         questionId: question.id,
         timer,
         totalTimer: question.timer,
+        timestamp: Timestamp.now(),
       });
 
       handleMessage(`Desafio salvo com sucesso, ID: ${queRef.id}`, "error");
@@ -89,10 +90,9 @@ const Challenge = () => {
       <div>
         <h2>{question.title}</h2>
         <p>Language: {question.language}</p>
-        <hr />
-        <CodeHighlighter code={code} language={question.language} />
 
-        <hr />
+        <CodeHighlighter code={code} language={question.language} />
+        <br />
         <Timer timer={timer} setTimer={setTimer} />
         <hr />
         <p>Alternativas:</p>

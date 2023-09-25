@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@firebase/auth-types": "^0.12.0",
+    "@types/node-sass": "^4.11.5",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@types/react-router-dom": "^5.3.3",
@@ -30,6 +31,8 @@
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "sass": "^1.68.0",
+    "sass-loader": "^13.3.2",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   }

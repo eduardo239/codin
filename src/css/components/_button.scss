@@ -1,0 +1,52 @@
+.btn {
+  display: block;
+  height: 44px;
+  min-width: 44px;
+  justify-content: center;
+  padding: $spacing-sm $spacing-md;
+
+  font-size: $font-size-sm;
+  letter-spacing: 0.25px;
+  font-weight: 500;
+
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+
+  &.btn-small {
+    height: 27px;
+  }
+
+  &.btn-primary {
+    background-color: $color_pri;
+  }
+  &.btn-secondary {
+    background-color: $color_sec;
+    color: $color_lig;
+  }
+  &.btn-light {
+    background-color: $color_lig;
+  }
+  &.btn-dark {
+    background-color: $color_dar;
+    color: $color_lig;
+  }
+
+  &:hover {
+    cursor: pointer;
+    filter: brightness(110%);
+  }
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.link-icon {
+  display: inline-block;
+  padding: $spacing-md;
+  svg {
+    width: $spacing-lg;
+    height: $spacing-lg;
+  }
+}

@@ -22,29 +22,22 @@ const AddAlternative = ({
   return (
     <div className="input-container">
       <div className="input-field">
-        <div>
-          <label className="flex align-center">
-            [ {index} ]{" "}
-            <input
-              type="radio"
-              name={name}
-              value={value}
-              checked={value === selectedOption}
-              onChange={(e) => setState(e.currentTarget.value)}
-            />{" "}
-            |
-          </label>
-        </div>
-
-        <div className="flex-1">
+        <label>
+          [ {index} ]{" "}
           <input
-            placeholder="As alternativas ficam aqui ..."
-            type="text"
-            className="input"
-            value={textValue}
-            onChange={(e) => setTextState(() => e.target.value)}
-          />
-        </div>
+            type="radio"
+            name={name}
+            value={value}
+            checked={value === selectedOption}
+            onChange={(e) => setState(e.currentTarget.value)}
+          />{" "}
+        </label>
+        <input
+          placeholder="Adicione as alternativas aqui ..."
+          type="text"
+          value={textValue}
+          onChange={(e) => setTextState(() => e.target.value)}
+        />
       </div>
     </div>
   );

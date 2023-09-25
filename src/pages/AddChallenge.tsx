@@ -10,14 +10,9 @@ import {
   MdOutlineTitle,
 } from "react-icons/md";
 import AddAlternative from "../components/form/InputAlternative";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../helpers/firebase";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { js } from "../helpers/code";
-
-export type TAlternative = {
-  id: number;
-  content: string;
-};
+import { handleSubmitChallenge } from "../helpers";
 
 const AddChallenge = () => {
   const [title, setTitle] = useState<string | number>("Qual é a resposta?");
@@ -33,48 +28,20 @@ const AddChallenge = () => {
   const [a5, setA5] = useState("");
   const [correct, setCorrect] = useState("1");
 
-  const [alternative, setAlternative] = useState<TAlternative[]>([
-    {
-      id: 1,
-      content: "1",
-    },
-    {
-      id: 2,
-      content: "2",
-    },
-    {
-      id: 3,
-      content: "3",
-    },
-    {
-      id: 4,
-      content: "4",
-    },
-    {
-      id: 5,
-      content: "5",
-    },
-  ]);
-
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    const alternatives = [a1, a2, a3, a4, a5];
 
-    const queRef = await addDoc(collection(db, "question"), {
-      title,
-      language,
-      code,
+    const _challenge = {
+      title: title.toString(),
+      language: language.toString(),
+      code: code.toString(),
       difficulty: +difficulty,
-      alternatives,
-      timer,
-    });
-    console.log("Document written with ID: ", queRef.id);
-
-    const ansRef = await addDoc(collection(db, "answer"), {
-      questionId: queRef.id,
-      correct: parseFloat(correct),
-    });
-    console.log("Document written with ID: ", ansRef.id);
+      timer: timer.toString(),
+      correct: correct,
+      timestamp: Timestamp.now(),
+    };
+    const _alternatives = [a1, a2, a3, a4, a5];
+    await handleSubmitChallenge(_challenge, _alternatives);
   };
 
   return (
@@ -166,9 +133,11 @@ const AddChallenge = () => {
           textValue={a5}
           setTextState={setA5}
         />
-        <p>Resposta Correta Selecionada: {correct}</p>
+        <p>Resposta Selecionada: {correct}</p>
+
         <hr />
-        <Button icon={<MdOutlineNewReleases />} type="submit">
+
+        <Button variant="primary" icon={<MdOutlineNewReleases />} type="submit">
           Salvar
         </Button>
       </form>

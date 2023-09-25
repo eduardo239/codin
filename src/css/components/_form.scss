@@ -1,0 +1,16 @@
+.form-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .form {
+    max-width: 25rem;
+    width: 100%;
+    padding: $spacing-lg;
+    box-shadow: $shadow-3;
+
+    margin-bottom: $spacing-lg;
+  }
+}

@@ -21,16 +21,18 @@ const AddAlternative = ({
   return (
     <div className="input-container">
       <div className="input-field">
-        [ {index} ]{" "}
-        <input
-          id={id}
-          type="radio"
-          name={name}
-          value={value}
-          checked={value === selectedOption}
-          onChange={(e) => setState(e.currentTarget.value)}
-        />{" "}
-        <label className="input-field-radio-label" htmlFor={id}>
+        <div className="flex align-center">
+          <span className="index-icon">[{index}]</span>
+          <input
+            id={id}
+            type="radio"
+            name={name}
+            value={value}
+            checked={value === selectedOption}
+            onChange={(e) => setState(e.currentTarget.value)}
+          />{" "}
+        </div>
+        <label className="input-alternative" htmlFor={id}>
           {textValue}
         </label>
       </div>

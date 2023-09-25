@@ -19,13 +19,10 @@ const Input = ({
 }: InputProps) => {
   return (
     <div className="input-container">
-      <label className="input-label" htmlFor={id}>
-        {label}
-      </label>
+      <label htmlFor={id}>{label}</label>
       <div className="input-field">
         {icon}
         <input
-          className="input"
           id={id}
           type={type}
           value={value}

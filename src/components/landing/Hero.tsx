@@ -11,6 +11,10 @@ const Hero = () => {
       </p>
       <div className="center">
         <Button>Cadastre-se - Grátis</Button>
+        <Button variant="dark">Cadastre-se - Grátis</Button>
+        <Button variant="secondary">Cadastre-se - Grátis</Button>
+        <Button variant="light">Cadastre-se - Grátis</Button>
+        <Button>Cadastre-se - Grátis</Button>
       </div>
     </div>
   );

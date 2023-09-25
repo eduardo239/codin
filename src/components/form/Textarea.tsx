@@ -19,13 +19,11 @@ const Textarea = ({
 }: InputProps) => {
   return (
     <div className="input-container">
-      <label className="input-label" htmlFor={id}>
-        {label}
-      </label>
+      <label htmlFor={id}>{label}</label>
 
       <textarea
         rows={rows ? rows : 10}
-        className="textarea"
+        className="font-code"
         id={id}
         value={value}
         onChange={({ currentTarget }) => setState(currentTarget.value)}

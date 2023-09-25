@@ -23,47 +23,45 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="navigation-container">
-      <ul>
+    <ul className="flex-center-center flex-column ">
+      <li>
+        <Link className="link-icon" to="/">
+          <MdHome />
+        </Link>
+      </li>
+      {!user && (
         <li>
-          <Link to="/">
-            <MdHome />
+          <Link className="link-icon" to="/auth">
+            <MdLogin />
           </Link>
         </li>
-        {!user && (
-          <li>
-            <Link to="/auth">
-              <MdLogin />
-            </Link>
-          </li>
-        )}
-        {user && (
-          <li>
-            <Link to="/profile">
-              <MdAccountBox />
-            </Link>
-          </li>
-        )}
-        {user && (
-          <li>
-            <Link to="/add-challenge">
-              <MdPlusOne />
-            </Link>
-          </li>
-        )}
+      )}
+      {user && (
+        <li>
+          <Link className="link-icon" to="/profile">
+            <MdAccountBox />
+          </Link>
+        </li>
+      )}
+      {user && (
+        <li>
+          <Link className="link-icon" to="/add-challenge">
+            <MdPlusOne />
+          </Link>
+        </li>
+      )}
 
+      <li>
+        <Link className="link-icon" to="/challenges">
+          <MdList />
+        </Link>
+      </li>
+      {user && (
         <li>
-          <Link to="/challenges">
-            <MdList />
-          </Link>
+          <Button icon={<MdOutlineLogout />} onClick={handleLogout}></Button>
         </li>
-        {user && (
-          <li>
-            <Button icon={<MdOutlineLogout />} onClick={handleLogout}></Button>
-          </li>
-        )}
-      </ul>
-    </nav>
+      )}
+    </ul>
   );
 };
 
