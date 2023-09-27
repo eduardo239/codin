@@ -9,31 +9,38 @@
 
   display: flex;
   align-items: center;
+  justify-content: flex-start;
 
   box-shadow: $shadow-3;
+
+  p {
+    line-height: 1.4;
+    font-size: 13px;
+    margin-bottom: 0;
+  }
 }
 
 .message-success {
   background-color: $color_suc-bg;
-  p {
+  svg {
     color: $color_suc;
   }
 }
 .message-info {
   background-color: $color_inf-bg;
-  p {
+  svg {
     color: $color_inf;
   }
 }
 .message-warning {
   background-color: $color_war-bg;
-  p {
-    color: $color_err;
+  svg {
+    color: $color_war;
   }
 }
 .message-error {
   background-color: $color_err-bg;
-  p {
+  svg {
     color: $color_err;
   }
 }

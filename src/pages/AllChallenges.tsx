@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { deleteDocById, getAllPaginatedDocs, getCountDocs } from "../helpers";
 import { IQuestion } from "../helpers/type";
 import Button from "../components/form/Button";
 import { OrderByDirection } from "firebase/firestore";
-import { MdDelete } from "react-icons/md";
+import ChallengeItem from "../components/challenge/ChallengeItem";
+import LanguageList from "../components/challenge/LanguageList";
 
 const AllChallenges = () => {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
@@ -15,11 +15,11 @@ const AllChallenges = () => {
   const [totalPerLimitDocs, setTotalPerLimitDocs] = useState(0);
 
   const getAllQuestions = async () => {
-    const response2 = await getAllPaginatedDocs(language, limit, order);
-    setQuestions(response2);
+    const response = await getAllPaginatedDocs(language, limit, order);
+    setQuestions(response);
   };
 
-  const handleRemoveDoc = async (id: string) => {
+  const handleRemoveChallenge = async (id: string) => {
     try {
       await deleteDocById(id);
       const response = await getAllPaginatedDocs(language, limit, order);
@@ -70,33 +70,13 @@ const AllChallenges = () => {
       </div>
       <br />
       <div className="flex gap-1">
-        <Button small onClick={() => setLanguage("")}>
-          All
-        </Button>
-        <Button small onClick={() => setLanguage("javascript")}>
-          Javascript
-        </Button>
-        <Button small onClick={() => setLanguage("java")}>
-          Java
-        </Button>
-        <Button small onClick={() => setLanguage("python")}>
-          Python
-        </Button>
-        <Button small onClick={() => setLanguage("c++")}>
-          C++
-        </Button>
-        <Button small onClick={() => setLanguage("rust")}>
-          Rust
-        </Button>
-        <Button small onClick={() => setLanguage("sql")}>
-          SQL
-        </Button>
+        <LanguageList setLanguage={setLanguage} />
       </div>
 
       <hr />
       <div>
         <code>
-          Query:{" "}
+          Busca:{" "}
           {language + " | " + order + " | " + limit + " | " + totalPerLimitDocs}
         </code>
       </div>
@@ -105,20 +85,15 @@ const AllChallenges = () => {
       <div className="flex flex-column">
         {questions && questions.length > 0 ? (
           questions.map((item) => (
-            <div className="question" key={item.id}>
-              <Link to={`/challenge?id=${item.id}`}>
-                <span>{item.title}</span>
-              </Link>
-              <div className="flex align-center gap-2">
-                <span>{item.language}</span>
-                <Button onClick={() => handleRemoveDoc(item.id)}>
-                  <MdDelete />
-                </Button>
-              </div>
-            </div>
+            <ChallengeItem
+              id={item.id}
+              title={item.title}
+              language={item.language}
+              handleRemoveChallenge={handleRemoveChallenge}
+            />
           ))
         ) : (
-          <p>Not Found</p>
+          <p>Nenhum desafio encontrado.</p>
         )}
       </div>
     </div>

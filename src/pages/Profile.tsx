@@ -3,17 +3,7 @@ import Progress from "../components/ui/Progress";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../helpers/firebase";
 import { useUser } from "../context/UserContext";
-
-type TUserAnswers = {
-  id: string;
-  timestamp: unknown;
-  correct: boolean;
-  userId: string;
-  questionId: string;
-  alternative: number;
-  timer?: number;
-  totalTimer?: number;
-};
+import { TUserAnswers } from "../helpers/type";
 
 const Profile = () => {
   const { user } = useUser();
@@ -37,12 +27,12 @@ const Profile = () => {
         const ua_ = {
           id: doc.id,
           timestamp: doc.data().timestamp,
-          correct: doc.data().correct,
+          isCorrect: doc.data().correct,
           userId: doc.data().userId,
           questionId: doc.data().questionId,
-          alternative: doc.data().alternative,
-          timer: doc.data().timer,
-          totalTimer: doc.data().totalTimer,
+          selectedAlternative: doc.data().alternative,
+          timeLeft: doc.data().timer,
+          challengeTime: doc.data().totalTimer,
         };
 
         array.push(ua_);
@@ -53,7 +43,7 @@ const Profile = () => {
   };
 
   const sumAllCorrectAnswers = () => {
-    return userAnswers.reduce((acc, item) => acc + Number(item.correct), 0);
+    return userAnswers.reduce((acc, item) => acc + Number(item.isCorrect), 0);
   };
 
   const averageTime = () => {
@@ -64,8 +54,8 @@ const Profile = () => {
     let totalTime = 0;
 
     for (const obj of userAnswers) {
-      if (obj.totalTimer && obj.timer) {
-        const rest = obj.totalTimer - obj.timer;
+      if (obj.challengeTime && obj.timeLeft) {
+        const rest = obj.challengeTime - obj.timeLeft;
         totalTime += rest;
       }
     }
@@ -104,7 +94,7 @@ const Profile = () => {
           value={userCorrectAnswers / userTotalAnswers}
         />
       ) : (
-        <p>Carregando ...</p>
+        <p>Nenhuma informação foi encontrada.</p>
       )}
 
       {userTotalAnswers && totalQuestions ? (
@@ -113,7 +103,7 @@ const Profile = () => {
           value={userTotalAnswers / totalQuestions}
         />
       ) : (
-        <p>Carregando ...</p>
+        <p>Nenhuma informação foi encontrada.</p>
       )}
 
       {userAverageTime ? (
@@ -122,7 +112,7 @@ const Profile = () => {
           value={userAverageTime / 100}
         />
       ) : (
-        <p>Carregando ...</p>
+        <p>Nenhuma informação foi encontrada.</p>
       )}
     </div>
   );

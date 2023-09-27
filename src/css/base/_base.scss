@@ -152,9 +152,15 @@ hr {
   margin-bottom: $spacing-md;
   box-shadow: $shadow-2;
 
-  display: flex;
+  display: grid;
   align-items: center;
-  justify-content: space-between;
+  grid-template-columns: 1fr auto;
+  gap: $spacing-md;
+
+  p {
+    padding: $spacing-sm;
+    margin-bottom: 0;
+  }
 }
 
 // main menu

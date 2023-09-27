@@ -1,0 +1,24 @@
+.timer-container {
+  position: fixed;
+  bottom: $spacing-md;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: $spacing-lg;
+  z-index: 100;
+
+  gap: $spacing-md;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  box-shadow: $shadow-3;
+
+  background-color: $color_inf-bg;
+
+  p {
+    line-height: 1.4;
+    font-size: 13px;
+    margin-bottom: 0;
+  }
+}

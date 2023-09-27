@@ -19,11 +19,11 @@ const Timer = ({
   }, []);
 
   return (
-    <>
+    <div className="timer-container">
       <p>
         Tempo restante: <b> {timer}</b> segundos
       </p>
-    </>
+    </div>
   );
 };
 

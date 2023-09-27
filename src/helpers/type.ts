@@ -28,3 +28,30 @@ export type TChallenge = {
   correct: string;
   timestamp: Timestamp;
 };
+
+export type TUserAnswer = {
+  isCorrect: boolean;
+  userId: string;
+  selectedAlternative: string;
+  questionId: string;
+  timeLeft: number;
+  challengeTime: string;
+  timestamp: Timestamp;
+};
+
+export type TUserAnswers = {
+  id: string;
+  timestamp: unknown;
+  isCorrect: boolean;
+  userId: string;
+  questionId: string;
+  selectedAlternative: number;
+  timeLeft?: number;
+  challengeTime?: number;
+};
+
+export type TLanguageList = {
+  id: number;
+  name: string;
+  order: number;
+};

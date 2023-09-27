@@ -5,7 +5,7 @@ import {
   signOut,
   User,
 } from "firebase/auth";
-import { IQuestion, TChallenge, TUser } from "./type";
+import { IQuestion, TChallenge, TUser, TUserAnswer } from "./type";
 import {
   OrderByDirection,
   QueryFieldFilterConstraint,
@@ -16,11 +16,11 @@ import {
   deleteDoc,
   doc,
   getCountFromServer,
+  getDoc,
   getDocs,
   limit,
   orderBy,
   query,
-  startAfter,
   startAt,
   where,
 } from "firebase/firestore";
@@ -66,51 +66,13 @@ export const logoutUser = async () => {
   const auth = getAuth();
 
   try {
-    const response = await signOut(auth);
+    await signOut(auth);
     window.localStorage.removeItem("user");
   } catch (error) {
     let message = "Unknown Error";
     if (error instanceof Error) message = error.message;
     throw new Error(`${message}`);
   }
-};
-
-export const getAllDocs = async (
-  language?: string,
-  order?: OrderByDirection | undefined,
-  limitNumber?: number
-) => {
-  let q = null;
-  const questionRef = collection(db, "question");
-
-  if (language) {
-    q = query(
-      questionRef,
-      where("language", "==", language),
-      orderBy("timestamp", order),
-      limit(limitNumber ? limitNumber : 10)
-    );
-  } else {
-    q = query(
-      questionRef,
-      orderBy("timestamp", order),
-      limit(limitNumber ? limitNumber : 10)
-    );
-  }
-  const querySnapshot = await getDocs(q);
-  const array: IQuestion[] = [];
-  querySnapshot.forEach((doc) => {
-    const dt = {
-      id: doc.id,
-      difficulty: doc.data().difficulty,
-      code: doc.data().code,
-      title: doc.data().title,
-      language: doc.data().language,
-      alternatives: doc.data().alternatives,
-    };
-    array.push(dt);
-  });
-  return array;
 };
 
 export const getAllPaginatedDocs = async (
@@ -127,6 +89,8 @@ export const getAllPaginatedDocs = async (
   let firstWithWhere = null;
   let firstWithoutWhere = null;
   let docSnapshots = null;
+  let docSnapshots2 = null;
+  let next = null;
 
   firstWithWhere = query(questionRef, _where, _order, _limit);
   firstWithoutWhere = query(questionRef, _order, _limit);
@@ -136,12 +100,21 @@ export const getAllPaginatedDocs = async (
   } else {
     docSnapshots = await getDocs(firstWithoutWhere);
   }
+  if (!docSnapshots.docs.length) {
+    return [];
+  }
 
   const last = docSnapshots.docs[docSnapshots.docs.length - 1];
-  const next = query(questionRef, _where, _order, startAt(last), limit(3));
-  const docSnapshots2 = await getDocs(next);
+  if (language) {
+    next = query(questionRef, _where, _order, startAt(last), limit(3));
+  } else {
+    next = query(questionRef, _order, startAt(last), limit(3));
+  }
+
+  docSnapshots2 = await getDocs(next);
 
   const array: IQuestion[] = [];
+
   docSnapshots2.forEach((doc) => {
     const dt = {
       id: doc.id,
@@ -155,6 +128,17 @@ export const getAllPaginatedDocs = async (
   });
 
   return array;
+};
+
+export const getChallenge = async (id: string) => {
+  const docRef = doc(db, "question", id);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data();
+  } else {
+    return null;
+  }
 };
 
 export const getCountDocs = async () => {
@@ -183,6 +167,28 @@ export const handleSubmitChallenge = async (
     correct: parseFloat(challenge.correct),
   });
   console.log("Document written with ID: ", ansRef.id);
+};
+
+export const handleSubmitAnswer = async (
+  id: string,
+  selectedOption: string
+) => {
+  if (selectedOption && id) {
+    const q = query(collection(db, "answer"), where("questionId", "==", id));
+    const querySnapshot = await getDocs(q);
+
+    let isCorrect = false;
+    querySnapshot.forEach((doc) => {
+      isCorrect = parseInt(selectedOption) === doc.data().correct;
+    });
+    return isCorrect;
+  }
+  return null;
+};
+
+export const handleSaveUserAnswer = async (userAnswer: TUserAnswer) => {
+  const queRef = await addDoc(collection(db, "user_answers"), userAnswer);
+  return queRef;
 };
 
 export function formatDate(date: Date) {

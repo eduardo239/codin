@@ -2,25 +2,19 @@ import { useEffect, useState } from "react";
 
 import { useQuery } from "../helpers/helper";
 import CodeHighlighter from "../components/code/CodeHighlighter";
-import {
-  DocumentData,
-  Timestamp,
-  addDoc,
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  serverTimestamp,
-  where,
-} from "firebase/firestore";
-import { db } from "../helpers/firebase";
+import { DocumentData, Timestamp, doc, getDoc } from "firebase/firestore";
 import Alternative from "../components/form/Alternative";
 import Button from "../components/form/Button";
 import Timer from "../components/code/Timer";
 import { MdSend } from "react-icons/md";
 import { useUser } from "../context/UserContext";
 import { useData } from "../context/DataContext";
+import {
+  getChallenge,
+  handleSaveUserAnswer,
+  handleSubmitAnswer,
+} from "../helpers";
+import CodeId from "../components/code/CodeId";
 
 const Challenge = () => {
   const { user } = useUser();
@@ -30,57 +24,65 @@ const Challenge = () => {
 
   const [question, setQuestion] = useState<DocumentData | null>(null);
   const [selectedOption, setSelectedOption] = useState("");
-  const [code, setCode] = useState<string>(``);
-  const [correct, setCorrect] = useState<null | boolean>(null);
   const [timer, setTimer] = useState<number>(300);
-
-  const getData = async (id: string) => {
-    const docRef = doc(db, "question", id);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      setQuestion({ id: docSnap.id, ...docSnap.data() });
-      setCode(`${docSnap.data().code}`);
-    } else {
-      // docSnap.data() will be undefined in this case
-      console.log("No such document!");
-    }
-  };
+  const [id, setId] = useState<string | null>(null);
 
   const handleSubmit = async () => {
-    const id = query_.get("id");
-
-    if (selectedOption && id) {
-      const q = query(collection(db, "answer"), where("questionId", "==", id));
-
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        const c = parseInt(selectedOption) === doc.data().correct;
-        setCorrect(c);
-        saveUserAnswer(c);
-      });
+    if (id) {
+      const isCorrect = await handleSubmitAnswer(id, selectedOption);
+      if (isCorrect !== null) {
+        saveUserAnswer(isCorrect);
+      }
     }
   };
 
-  const saveUserAnswer = async (c: boolean) => {
-    if (user && question) {
-      const queRef = await addDoc(collection(db, "user_answers"), {
-        correct: c,
-        userId: user.uid,
-        alternative: selectedOption,
-        questionId: question.id,
-        timer,
-        totalTimer: question.timer,
-        timestamp: Timestamp.now(),
-      });
+  const saveUserAnswer = async (isCorrect: boolean) => {
+    if (user) {
+      if (question && id) {
+        const userAnswer = {
+          isCorrect: isCorrect,
+          userId: user.uid,
+          selectedAlternative: selectedOption,
+          questionId: id,
+          timeLeft: timer,
+          challengeTime: question.timer,
+          timestamp: Timestamp.now(),
+        };
 
-      handleMessage(`Desafio salvo com sucesso, ID: ${queRef.id}`, "info");
+        console.log(userAnswer);
+        const response = await handleSaveUserAnswer(userAnswer);
+        if (userAnswer.isCorrect) {
+          handleMessage(
+            `Desafio: ${response.id}, finalizado. Resposta correta.`,
+            "success"
+          );
+        } else {
+          handleMessage(
+            `Desafio: ${response.id}, finalizado. Resposta incorreta.`,
+            "warning"
+          );
+        }
+      }
+    } else {
+      handleMessage(
+        `Você precisa estar logado, antes de realizar o desafio.`,
+        "warning"
+      );
     }
   };
 
   useEffect(() => {
-    const q = query_.get("id");
-    if (q) getData(q);
+    const id_ = query_.get("id");
+    if (id_) {
+      (async () => {
+        const response = await getChallenge(id_);
+        setQuestion(response);
+      })();
+
+      setId(id_);
+    } else {
+      setId(null);
+    }
 
     return () => {};
   }, [query_]);
@@ -91,10 +93,12 @@ const Challenge = () => {
         <h2>{question.title}</h2>
         <p>Language: {question.language}</p>
 
-        <CodeHighlighter code={code} language={question.language} />
+        <CodeHighlighter code={question.code} language={question.language} />
         <br />
+
         <Timer timer={timer} setTimer={setTimer} />
         <hr />
+
         <p>Alternativas:</p>
         {question.alternatives.map((q: string, i: number) => (
           <div key={i}>
@@ -116,16 +120,10 @@ const Challenge = () => {
         </Button>
 
         <br />
-        {correct != null && (
-          <div>
-            <p>Resposta: {correct ? "Correta" : "Errada"}</p>
-          </div>
-        )}
 
         <hr />
-        <small>
-          <code> Challenge ID: {query_.get("id")}</code>
-        </small>
+
+        {id && <CodeId id={id} />}
       </div>
     );
   else

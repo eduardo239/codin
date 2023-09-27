@@ -1,5 +1,4 @@
 import React from "react";
-import { getAllDocs } from "../helpers";
 import { TMessage } from "../helpers/type";
 
 type TData = {
@@ -33,9 +32,14 @@ export const DataProvider = ({ children }: React.PropsWithChildren) => {
     });
   };
 
+  const clearMessage = () => {
+    setTimeout(() => setMessage(null), 3000);
+  };
+
   React.useEffect(() => {
+    clearMessage();
     return () => {};
-  }, []);
+  }, [message]);
 
   return (
     <DataContext.Provider

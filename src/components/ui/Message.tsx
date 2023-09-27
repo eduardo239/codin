@@ -1,4 +1,4 @@
-import { MdOutline10K, MdOutlineClose } from "react-icons/md";
+import { MdInfo, MdOutline10K, MdOutlineClose } from "react-icons/md";
 import { useData } from "../../context/DataContext";
 
 const Message = () => {
@@ -19,10 +19,10 @@ const Message = () => {
             : ""
         }`}
       >
-        <MdOutline10K />
+        <MdInfo />
 
         <div>
-          <span>{message.message}</span>
+          <p>{message.message}</p>
         </div>
 
         <MdOutlineClose

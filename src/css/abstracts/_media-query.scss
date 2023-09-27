@@ -1,17 +1,15 @@
-@media screen and (max-width: 768px) {
-  .avatar {
-    width: 80px;
-    height: 80px;
-  }
-
+@media screen and (max-width: 720px) {
   .navigation {
     flex-direction: row;
   }
 }
 
-// grid
 @media screen and (max-width: 768px) {
   .grid-2_r_1 {
     grid-template-columns: 1fr;
+  }
+  .avatar {
+    width: 80px;
+    height: 80px;
   }
 }

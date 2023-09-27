@@ -7,6 +7,7 @@
     display: inline-block;
     color: $color_dar;
     font-size: $font-size-sm;
+    margin-bottom: $spacing-sm;
   }
 
   input {
@@ -34,6 +35,13 @@
     align-items: center;
   }
 
+  select {
+    outline: none;
+    border: none;
+    padding: 12px;
+    background-color: $color_lig;
+  }
+
   .input-alternative {
     background-color: $color_lig;
     padding: $spacing-md;
@@ -50,6 +58,9 @@ input[type="radio"] {
   accent-color: $color_pri;
   height: $spacing-lg;
   width: $spacing-lg;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .index-icon {
