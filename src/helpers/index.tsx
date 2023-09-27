@@ -8,12 +8,20 @@ import {
 import { IQuestion, TChallenge, TUser } from "./type";
 import {
   OrderByDirection,
+  QueryFieldFilterConstraint,
+  QueryLimitConstraint,
+  QueryOrderByConstraint,
   addDoc,
   collection,
+  deleteDoc,
+  doc,
+  getCountFromServer,
   getDocs,
   limit,
   orderBy,
   query,
+  startAfter,
+  startAt,
   where,
 } from "firebase/firestore";
 import { db } from "./firebase";
@@ -73,13 +81,8 @@ export const getAllDocs = async (
   limitNumber?: number
 ) => {
   let q = null;
-  console.log(order, language);
   const questionRef = collection(db, "question");
 
-  // q = query(questionRef, where("language", "==", language));
-  // q = query(questionRef, orderBy("timestamp", order), limit(3));
-
-  //q = query(questionRef, where("language", "==", language), limit(limitNumber));
   if (language) {
     q = query(
       questionRef,
@@ -94,7 +97,6 @@ export const getAllDocs = async (
       limit(limitNumber ? limitNumber : 10)
     );
   }
-
   const querySnapshot = await getDocs(q);
   const array: IQuestion[] = [];
   querySnapshot.forEach((doc) => {
@@ -109,6 +111,56 @@ export const getAllDocs = async (
     array.push(dt);
   });
   return array;
+};
+
+export const getAllPaginatedDocs = async (
+  language: string,
+  limit_: number,
+  order_?: OrderByDirection | undefined
+) => {
+  const questionRef = collection(db, "question");
+
+  const _where: QueryFieldFilterConstraint = where("language", "==", language);
+  const _order: QueryOrderByConstraint = orderBy("timestamp", order_);
+  const _limit: QueryLimitConstraint = limit(limit_);
+
+  let firstWithWhere = null;
+  let firstWithoutWhere = null;
+  let docSnapshots = null;
+
+  firstWithWhere = query(questionRef, _where, _order, _limit);
+  firstWithoutWhere = query(questionRef, _order, _limit);
+
+  if (language) {
+    docSnapshots = await getDocs(firstWithWhere);
+  } else {
+    docSnapshots = await getDocs(firstWithoutWhere);
+  }
+
+  const last = docSnapshots.docs[docSnapshots.docs.length - 1];
+  const next = query(questionRef, _where, _order, startAt(last), limit(3));
+  const docSnapshots2 = await getDocs(next);
+
+  const array: IQuestion[] = [];
+  docSnapshots2.forEach((doc) => {
+    const dt = {
+      id: doc.id,
+      difficulty: doc.data().difficulty,
+      code: doc.data().code,
+      title: doc.data().title,
+      language: doc.data().language,
+      alternatives: doc.data().alternatives,
+    };
+    array.push(dt);
+  });
+
+  return array;
+};
+
+export const getCountDocs = async () => {
+  const questionRef = collection(db, "question");
+  const snapshot = await getCountFromServer(questionRef);
+  return snapshot.data().count;
 };
 
 export const handleSubmitChallenge = async (
@@ -144,3 +196,11 @@ export function formatDate(date: Date) {
 
   return `${formattedDay}/${formattedMonth}/${year}`;
 }
+
+export const deleteDocById = async (id: string) => {
+  try {
+    await deleteDoc(doc(db, "question", id));
+  } catch (error) {
+    console.log(error);
+  }
+};

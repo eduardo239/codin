@@ -147,12 +147,13 @@ hr {
 
 //
 .question {
-  padding: $spacing-lg;
+  padding: $spacing-sm $spacing-sm $spacing-sm $spacing-md;
   background-color: $color_lig;
   margin-bottom: $spacing-md;
   box-shadow: $shadow-2;
 
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
