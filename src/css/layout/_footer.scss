@@ -2,8 +2,8 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 
-  background-color: $color_dar;
-  color: $color_lig;
+  color: $color_dar;
+  background-color: $color_lig;
 
   padding: 40px $spacing-lg;
 }

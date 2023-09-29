@@ -1,17 +1,22 @@
-import { MdAccountCircle } from "react-icons/md";
+import { MdOutlineAccountBox } from "react-icons/md";
 
-const SectionNode = () => {
+const SectionNode = ({
+  text,
+  username,
+  occupation,
+}: {
+  text: string;
+  username: string;
+  occupation: string;
+}) => {
   return (
     <div className="node">
-      <p>
-        "...Holy sh*t this is fantastic…I'm really impressed so far. You all
-        have built something special here."
-      </p>
+      <p>{text}</p>
       <div className="node-card">
-        <MdAccountCircle />
+        <MdOutlineAccountBox />
         <div className="">
-          <b>Matthew (@Whale)</b>
-          <p>Founder at Really Good Emails .com</p>
+          <b>{username}</b>
+          <p>{occupation}</p>
         </div>
       </div>
     </div>

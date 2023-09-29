@@ -1,4 +1,4 @@
-import { MdInfo, MdOutline10K, MdOutlineClose } from "react-icons/md";
+import { MdInfo, MdOutlineClose } from "react-icons/md";
 import { useData } from "../../context/DataContext";
 
 const Message = () => {

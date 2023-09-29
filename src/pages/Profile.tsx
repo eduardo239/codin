@@ -81,39 +81,31 @@ const Profile = () => {
     <div>
       <h1>Perfil</h1>
       <p>
-        {user?.displayName
-          ? user.displayName
-          : "Usuário-" + Math.round(Math.random() * 9999).toString()}
+        username: <span>{user?.displayName || "username"}</span>
+      </p>
+      <p>
+        email: <span>{user?.email}</span>
+      </p>
+      <p>
+        user ID: <span>{user?.uid}</span>
       </p>
 
       <hr />
 
-      {userCorrectAnswers ? (
-        <Progress
-          title={`Respostas Corretas: ${userCorrectAnswers}`}
-          value={userCorrectAnswers / userTotalAnswers}
-        />
-      ) : (
-        <p>Nenhuma informação foi encontrada.</p>
-      )}
+      <Progress
+        title={`Respostas Corretas: ${userCorrectAnswers}`}
+        value={userCorrectAnswers / userTotalAnswers}
+      />
 
-      {userTotalAnswers && totalQuestions ? (
-        <Progress
-          title={`Questões Finalizadas: ${userTotalAnswers}`}
-          value={userTotalAnswers / totalQuestions}
-        />
-      ) : (
-        <p>Nenhuma informação foi encontrada.</p>
-      )}
+      <Progress
+        title={`Questões Finalizadas: ${userTotalAnswers}`}
+        value={userTotalAnswers / totalQuestions}
+      />
 
-      {userAverageTime ? (
-        <Progress
-          title={`Tempo médio ${userAverageTime.toFixed(2)} segundos.`}
-          value={userAverageTime / 100}
-        />
-      ) : (
-        <p>Nenhuma informação foi encontrada.</p>
-      )}
+      <Progress
+        title={`Tempo médio ${userAverageTime.toFixed(2)} segundos.`}
+        value={userAverageTime / 100}
+      />
     </div>
   );
 };

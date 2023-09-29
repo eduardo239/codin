@@ -24,7 +24,7 @@ const Challenge = () => {
 
   const [question, setQuestion] = useState<DocumentData | null>(null);
   const [selectedOption, setSelectedOption] = useState("");
-  const [timer, setTimer] = useState<number>(300);
+  const [timer, setTimer] = useState<number>(9999);
   const [id, setId] = useState<string | null>(null);
 
   const handleSubmit = async () => {
@@ -77,13 +77,12 @@ const Challenge = () => {
       (async () => {
         const response = await getChallenge(id_);
         setQuestion(response);
+        if (response) setTimer(response.timer);
       })();
-
       setId(id_);
     } else {
       setId(null);
     }
-
     return () => {};
   }, [query_]);
 

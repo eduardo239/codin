@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import Input from "../components/form/Input";
-import Textarea from "../components/form/Textarea";
-import Button from "../components/form/Button";
+import Input from "../../components/form/Input";
+import Textarea from "../../components/form/Textarea";
+import Button from "../../components/form/Button";
 import {
   MdOutlineNewReleases,
   MdOutlineSave,
   MdOutlineTimer,
   MdOutlineTitle,
 } from "react-icons/md";
-import AddAlternative from "../components/form/InputAlternative";
+import AddAlternative from "../../components/form/InputAlternative";
 import { Timestamp } from "firebase/firestore";
-import { js } from "../helpers/code";
-import { handleSubmitChallenge } from "../helpers";
-import { languageList } from "../helpers/constants";
-import Select from "../components/form/Select";
-import { useData } from "../context/DataContext";
+import { js } from "../../helpers/code";
+import { handleSubmitChallenge } from "../../helpers";
+import { languageList } from "../../helpers/constants";
+import Select from "../../components/form/Select";
+import { useData } from "../../context/DataContext";
 
 const AddChallenge = () => {
   const { handleMessage } = useData();
@@ -87,7 +87,12 @@ const AddChallenge = () => {
       timestamp: Timestamp.now(),
     };
     const _alternatives = [a1, a2, a3, a4, a5];
-    await handleSubmitChallenge(_challenge, _alternatives);
+    const challengeId = await handleSubmitChallenge(_challenge, _alternatives);
+
+    handleMessage(
+      `Desafio cadastrado com sucesso, ID: ${challengeId}.`,
+      "success"
+    );
   };
 
   return (

@@ -6,22 +6,30 @@ const Section4 = () => {
     <div className="section">
       <div className="grid-2_r_1">
         <div>
-          <img className="image radius" src={imgLand1} alt="Codin" />
+          <img
+            className="image radius"
+            src={imgLand1}
+            alt="Codin website imagem"
+          />
         </div>
-        <div className="flex-center-center">
+        <div className="flex-center-center order-1">
           <p>
             Ao contrário da crença popular, o Lorem Ipsum não é simplesmente
             texto aleatório. Tem raízes numa peça.
           </p>
         </div>
-        <div className="flex-center-center">
+        <div className="flex-center-center ">
           <p className="right ">
             Richard, um professor de Latim no Colégio Hampden-Sydney, na
             Virgínia, procurou uma das palavras em Latim mais obscuras.
           </p>
         </div>
         <div>
-          <img className="image radius" src={imgLand2} alt="" />
+          <img
+            className="image radius"
+            src={imgLand2}
+            alt="Imagem de uma paisagem"
+          />
         </div>
       </div>
     </div>

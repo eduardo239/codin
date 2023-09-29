@@ -8,7 +8,7 @@ import LanguageList from "../components/challenge/LanguageList";
 
 const AllChallenges = () => {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
-  const [language, setLanguage] = useState("java");
+  const [language, setLanguage] = useState("");
   const [order, setOrder] = useState<OrderByDirection | undefined>("desc");
   const [limit, setLimit] = useState(1);
 
@@ -85,12 +85,14 @@ const AllChallenges = () => {
       <div className="flex flex-column">
         {questions && questions.length > 0 ? (
           questions.map((item) => (
-            <ChallengeItem
-              id={item.id}
-              title={item.title}
-              language={item.language}
-              handleRemoveChallenge={handleRemoveChallenge}
-            />
+            <div key={item.id}>
+              <ChallengeItem
+                id={item.id}
+                title={item.title}
+                language={item.language}
+                handleRemoveChallenge={handleRemoveChallenge}
+              />
+            </div>
           ))
         ) : (
           <p>Nenhum desafio encontrado.</p>

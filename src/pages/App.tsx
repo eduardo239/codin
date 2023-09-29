@@ -8,9 +8,9 @@ import Home from "./Home";
 import Profile from "./Profile";
 import Navigation from "../components/ui/Navigation";
 import Avatar from "../components/avatar/Avatar";
-import AddChallenge from "./AddChallenge";
+import NewChallenge from "./new/Challenge";
 import Challenge from "./Challenge";
-import AllChallenges from "./AllChallenges";
+import AllChallenges from "./Challenges";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Footer from "../components/landing/Footer";
 import GridMain from "../components/layout/GridMain";
@@ -20,7 +20,7 @@ function App() {
   const { setUser } = useUser();
   const { message, setMessage } = useData();
 
-  const [local, setLocal] = useLocalStorage("user", "");
+  const [, setLocal] = useLocalStorage("user", "");
 
   const getUser = async () => {
     const auth = getAuth();
@@ -54,7 +54,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/add-challenge" element={<AddChallenge />} />
+                <Route path="/add-challenge" element={<NewChallenge />} />
                 <Route path="/challenge" element={<Challenge />} />
                 <Route path="/challenges" element={<AllChallenges />} />
               </Routes>

@@ -3,7 +3,8 @@ import { TLanguageList } from "./type";
 export const LANG_JAVA = "java";
 export const LANG_JAVASCRIPT = "javascript";
 export const LANG_PYTHON = "python";
-export const LANG_CPP = "cpp";
+export const LANG_CPP = "c++";
+export const LANG_CSHARP = "c#";
 
 export const languageList: TLanguageList[] = [
   {
@@ -30,5 +31,10 @@ export const languageList: TLanguageList[] = [
     id: 4,
     name: LANG_CPP,
     order: 4,
+  },
+  {
+    id: 5,
+    name: LANG_CSHARP,
+    order: 5,
   },
 ];

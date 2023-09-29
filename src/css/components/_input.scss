@@ -1,7 +1,9 @@
 .input-container {
-  padding: $spacing-md;
   margin-bottom: $spacing-md;
   box-shadow: $shadow-1;
+  background-color: $color_lig;
+  padding: $spacing-sm;
+  border-radius: 2px;
 
   label {
     display: inline-block;
@@ -11,11 +13,11 @@
   }
 
   input {
-    background-color: $color_lig;
+    background-color: white;
   }
 
   textarea {
-    background-color: $color_lig;
+    background-color: white;
   }
 }
 
@@ -24,6 +26,7 @@
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: $spacing-md;
+
   > svg {
     margin-left: $spacing-md;
     margin-right: $spacing-md;
@@ -33,21 +36,27 @@
   label {
     display: flex;
     align-items: center;
+    color: $color_dar;
   }
 
   select {
     outline: none;
     border: none;
     padding: 12px;
-    background-color: $color_lig;
+    background-color: white;
+  }
+
+  span {
+    color: $color_dar;
   }
 
   .input-alternative {
-    background-color: $color_lig;
+    background-color: white;
     padding: $spacing-md;
     width: 100%;
     line-height: 1.5;
-    font-size: $font-size-default;
+    font-size: 0.8rem;
+    margin-bottom: 0;
     &:hover {
       cursor: pointer;
     }
@@ -56,8 +65,8 @@
 
 input[type="radio"] {
   accent-color: $color_pri;
-  height: $spacing-lg;
-  width: $spacing-lg;
+  height: 20px;
+  width: 20px;
   &:hover {
     cursor: pointer;
   }

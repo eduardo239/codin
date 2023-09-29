@@ -43,8 +43,12 @@
 }
 
 .link-icon {
+  min-width: 48px;
   display: inline-block;
   padding: $spacing-md;
+  &:hover {
+    color: $color_dar;
+  }
   svg {
     width: $spacing-lg;
     height: $spacing-lg;

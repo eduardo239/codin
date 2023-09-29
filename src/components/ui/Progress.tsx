@@ -7,8 +7,13 @@ const Progress = ({ value, title }: IProgress) => {
   return (
     <div className="progress-container">
       <p>{title}</p>
-
-      <progress className="progress" value={value} max="1" />
+      {value ? (
+        <progress className="progress" value={value} max="1" />
+      ) : (
+        <div>
+          <span>Nenhuma informação encontrada.</span>
+        </div>
+      )}
     </div>
   );
 };

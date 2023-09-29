@@ -18,6 +18,8 @@ body {
   min-height: 100vh;
   overflow-y: scroll;
   scrollbar-width: thin;
+  background-color: $color-dar;
+  color: $color-lig;
 }
 
 body::-webkit-scrollbar {
@@ -33,9 +35,10 @@ body::-webkit-scrollbar-track {
 a {
   font-weight: 400;
   text-decoration: none;
-  color: $color_dar;
+  color: $color_lig;
   &:hover {
     background-color: $color_pri;
+    color: $color-dar;
   }
 }
 
@@ -91,6 +94,7 @@ code,
 .code {
   font-family: $font-code;
   line-height: 1.4;
+  font-size: 0.8rem;
 }
 
 .font-xxl,
@@ -141,14 +145,14 @@ textarea {
 }
 
 hr {
-  border-top: 1px solid $color_dis;
-  opacity: 0.3;
+  border-top: 1px solid $color_dar_alt;
+  opacity: 0.1;
 }
 
 //
 .question {
   padding: $spacing-sm $spacing-sm $spacing-sm $spacing-md;
-  background-color: $color_lig;
+  background-color: $color_dar_alt;
   margin-bottom: $spacing-md;
   box-shadow: $shadow-2;
 
@@ -163,6 +167,10 @@ hr {
   }
 }
 
+.radius {
+  border-radius: $spacing-sm;
+}
+
 // main menu
 .navigation {
   display: flex;
@@ -175,22 +183,15 @@ hr {
 .avatar {
   width: 50px;
   height: 50px;
+  border-radius: 50%;
 }
 .image {
   box-shadow: $shadow-1;
   border: $spacing-sm solid white;
 }
-
 // div
 .section {
   margin-top: 100px;
   margin-bottom: 100px;
   padding: $spacing-lg;
-}
-.section:nth-child(even) {
-  background-color: $color_lig;
-}
-
-.radius {
-  border-radius: $spacing-sm;
 }

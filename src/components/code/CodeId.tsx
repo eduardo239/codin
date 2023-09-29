@@ -2,7 +2,7 @@ const CodeId = ({ id }: { id: string }) => {
   return (
     <div>
       <small>
-        <code> Challenge ID: {id}</code>
+        <code style={{ opacity: "0.4" }}> Challenge ID: {id}</code>
       </small>
     </div>
   );

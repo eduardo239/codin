@@ -16,7 +16,7 @@ const ChallengeItem = ({
   handleRemoveChallenge,
 }: TChallengeItemProps) => {
   return (
-    <div className="question" key={id}>
+    <div className="question">
       <Link to={`/challenge?id=${id}`}>
         <p>{title}</p>
       </Link>

@@ -167,6 +167,8 @@ export const handleSubmitChallenge = async (
     correct: parseFloat(challenge.correct),
   });
   console.log("Document written with ID: ", ansRef.id);
+
+  return queRef.id;
 };
 
 export const handleSubmitAnswer = async (
