@@ -44,7 +44,7 @@ function App() {
       <div className="container flex-1">
         <div className="row">
           <div className="col-2">
-            <Avatar />
+            <Avatar src="" />
             <Navigation />
           </div>
 

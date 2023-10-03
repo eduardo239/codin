@@ -3,8 +3,8 @@ import Input from "../../components/form/Input";
 import Textarea from "../../components/form/Textarea";
 import Button from "../../components/form/Button";
 import {
+  MdLeaderboard,
   MdOutlineNewReleases,
-  MdOutlineSave,
   MdOutlineTimer,
   MdOutlineTitle,
 } from "react-icons/md";
@@ -19,7 +19,7 @@ import { useData } from "../../context/DataContext";
 const AddChallenge = () => {
   const { handleMessage } = useData();
 
-  const [title, setTitle] = useState<string | number>("Título do desafio !");
+  const [title, setTitle] = useState<string | number>("");
   const [language, setLanguage] = useState<string | number>("");
   const [code, setCode] = useState(js);
   const [difficulty, setDifficulty] = useState<string | number>("0.5");
@@ -97,7 +97,7 @@ const AddChallenge = () => {
 
   return (
     <div>
-      <h1>Add new challenge</h1>
+      <h1>Adicione um novo desafio</h1>
       <p>Aqui você pode adicionar um desafio.</p>
       <hr />
 
@@ -114,7 +114,8 @@ const AddChallenge = () => {
         <Textarea rows={20} label="Código" value={code} setState={setCode} />
 
         <Input
-          icon={<MdOutlineSave />}
+          type="number"
+          icon={<MdLeaderboard />}
           label="Selecione a dificuldade"
           value={difficulty}
           setState={setDifficulty}
@@ -180,7 +181,10 @@ const AddChallenge = () => {
           textValue={a5}
           setTextState={setA5}
         />
-        <p>Resposta Selecionada: {correctAnswer}</p>
+
+        <div>
+          <small>Resposta correta selecionada: {correctAnswer}</small>
+        </div>
 
         <hr />
 

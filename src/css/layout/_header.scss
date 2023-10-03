@@ -1,6 +1,21 @@
 .logo {
   padding: $spacing-lg 0;
+}
+
+.logo-lg {
   svg {
-    width: 100px;
+    width: 120px;
+  }
+}
+
+.logo-md {
+  svg {
+    width: 85px;
+  }
+}
+
+.logo-sm {
+  svg {
+    width: 70px;
   }
 }

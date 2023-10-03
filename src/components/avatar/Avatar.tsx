@@ -1,17 +1,16 @@
-import React from "react";
 import default_avatar from "../../assets/avatar.png";
 import { useUser } from "../../context/UserContext";
 import Logo from "../ui/Logo";
 
-const Avatar = () => {
+const Avatar = ({ src }: { src: string }) => {
   const { user } = useUser();
 
   return (
     <div className="aside">
-      <Logo />
+      <Logo size="md" />
 
       <div className="center">
-        <img className="avatar" src={default_avatar} alt="" />
+        <img className="avatar" src={src ? src : default_avatar} alt="" />
       </div>
 
       <p className="center padding-md">

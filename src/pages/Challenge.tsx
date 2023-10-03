@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { useQuery } from "../helpers/helper";
 import CodeHighlighter from "../components/code/CodeHighlighter";
-import { DocumentData, Timestamp, doc, getDoc } from "firebase/firestore";
+import { DocumentData, Timestamp } from "firebase/firestore";
 import Alternative from "../components/form/Alternative";
 import Button from "../components/form/Button";
 import Timer from "../components/code/Timer";
@@ -23,13 +23,16 @@ const Challenge = () => {
   const query_ = useQuery();
 
   const [question, setQuestion] = useState<DocumentData | null>(null);
-  const [selectedOption, setSelectedOption] = useState("");
-  const [timer, setTimer] = useState<number>(9999);
-  const [id, setId] = useState<string | null>(null);
+  const [selectedAlternative, setSelectedAlternative] = useState("");
+  const [timeLeft, setTimeLeft] = useState<number>(9999);
+  const [questionId, setQuestionId] = useState<string | null>(null);
 
   const handleSubmit = async () => {
-    if (id) {
-      const isCorrect = await handleSubmitAnswer(id, selectedOption);
+    if (questionId) {
+      const isCorrect = await handleSubmitAnswer(
+        questionId,
+        selectedAlternative
+      );
       if (isCorrect !== null) {
         saveUserAnswer(isCorrect);
       }
@@ -38,18 +41,17 @@ const Challenge = () => {
 
   const saveUserAnswer = async (isCorrect: boolean) => {
     if (user) {
-      if (question && id) {
+      if (question && questionId) {
         const userAnswer = {
-          isCorrect: isCorrect,
+          isCorrect,
           userId: user.uid,
-          selectedAlternative: selectedOption,
-          questionId: id,
-          timeLeft: timer,
+          selectedAlternative,
+          questionId,
+          timeLeft,
           challengeTime: question.timer,
           timestamp: Timestamp.now(),
         };
 
-        console.log(userAnswer);
         const response = await handleSaveUserAnswer(userAnswer);
         if (userAnswer.isCorrect) {
           handleMessage(
@@ -77,11 +79,11 @@ const Challenge = () => {
       (async () => {
         const response = await getChallenge(id_);
         setQuestion(response);
-        if (response) setTimer(response.timer);
+        if (response) setTimeLeft(response.timer);
       })();
-      setId(id_);
+      setQuestionId(id_);
     } else {
-      setId(null);
+      setQuestionId(null);
     }
     return () => {};
   }, [query_]);
@@ -95,7 +97,7 @@ const Challenge = () => {
         <CodeHighlighter code={question.code} language={question.language} />
         <br />
 
-        <Timer timer={timer} setTimer={setTimer} />
+        <Timer timer={timeLeft} setTimer={setTimeLeft} />
         <hr />
 
         <p>Alternativas:</p>
@@ -105,30 +107,29 @@ const Challenge = () => {
               id={i.toString()}
               name="alternative"
               index={i + 1}
-              selectedOption={selectedOption}
+              selectedOption={selectedAlternative}
               value={(i + 1).toString()}
-              setState={setSelectedOption}
+              setState={setSelectedAlternative}
               textValue={q}
             />
           </div>
         ))}
-        <p>Resposta Selecionada: {selectedOption}</p>
+        <p>Resposta Selecionada: {selectedAlternative}</p>
 
         <Button icon={<MdSend />} onClick={handleSubmit}>
           Submit
         </Button>
 
         <br />
-
         <hr />
 
-        {id && <CodeId id={id} />}
+        {questionId && <CodeId id={questionId} />}
       </div>
     );
   else
     return (
       <div>
-        <p>Not Found</p>
+        <p>Desafio não encontrado.</p>
       </div>
     );
 };

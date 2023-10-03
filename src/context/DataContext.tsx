@@ -1,9 +1,13 @@
 import React from "react";
 import { TMessage } from "../helpers/type";
+import { collection, getCountFromServer } from "firebase/firestore";
+import { db } from "../helpers/firebase";
+import { COLL_QUESTION } from "../helpers/constants";
 
 type TData = {
   message: TMessage | null;
   setMessage: React.Dispatch<React.SetStateAction<TMessage | null>>;
+  totalQuestions: number;
   handleMessage: (
     message: string,
     type: "error" | "warning" | "info" | "success"
@@ -21,6 +25,7 @@ export const useData = () => {
 
 export const DataProvider = ({ children }: React.PropsWithChildren) => {
   const [message, setMessage] = React.useState<TMessage | null>(null);
+  const [totalQuestions, setTotalQuestions] = React.useState(0);
 
   const handleMessage = (
     message: string,
@@ -36,8 +41,19 @@ export const DataProvider = ({ children }: React.PropsWithChildren) => {
     setTimeout(() => setMessage(null), 3000);
   };
 
+  const getTotalDocs = async () => {
+    const coll = collection(db, COLL_QUESTION);
+    const snapshot = await getCountFromServer(coll);
+    setTotalQuestions(snapshot.data().count);
+  };
+
   React.useEffect(() => {
     clearMessage();
+    return () => {};
+  }, [message]);
+
+  React.useEffect(() => {
+    getTotalDocs();
     return () => {};
   }, [message]);
 
@@ -47,6 +63,7 @@ export const DataProvider = ({ children }: React.PropsWithChildren) => {
         message,
         setMessage,
         handleMessage,
+        totalQuestions,
       }}
     >
       {children}

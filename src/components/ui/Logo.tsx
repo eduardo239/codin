@@ -1,9 +1,26 @@
 import { useNavigate } from "react-router-dom";
 
-const Logo = () => {
+const Logo = ({
+  center,
+  size,
+}: {
+  center?: boolean;
+  size: "sm" | "md" | "lg";
+}) => {
   const navigate = useNavigate();
   return (
-    <div className="logo" onClick={() => navigate("/")}>
+    <div
+      className={`logo ${center ? "center" : ""} ${
+        size === "sm"
+          ? "logo-sm"
+          : size === "lg"
+          ? "logo-lg"
+          : size === "md"
+          ? "logo-md"
+          : "logo-md"
+      }`}
+      onClick={() => navigate("/")}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"

@@ -11,6 +11,8 @@ import {
   MdOutlinePassword,
 } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Logo from "../components/ui/Logo";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -57,10 +59,11 @@ const Auth = () => {
   return (
     <div className="form-container">
       <br />
-      <br />
-      <br />
+
       <div className="form">
+        <Logo center size="sm" />
         <h2>Registro</h2>
+        <p>Inicie sessão para continuar</p>
         <Input
           icon={<MdOutlineEmail />}
           type="email"
@@ -82,7 +85,16 @@ const Auth = () => {
         <Button full icon={<MdOutlineBook />} onClick={registerNewUser}>
           Registrar
         </Button>
+
+        <hr />
+        <br />
+
+        <Link to="/auth">
+          <small>Cria uma conta aqui.</small>
+        </Link>
       </div>
+
+      <hr />
 
       <div className="form">
         <h2>Entrar</h2>
@@ -107,6 +119,13 @@ const Auth = () => {
         <Button full icon={<MdOutlineAccountCircle />} onClick={loginUser}>
           Entrar
         </Button>
+
+        <hr />
+        <br />
+
+        <Link to="/auth">
+          <small>Acesse sua conta aqui.</small>
+        </Link>
       </div>
     </div>
   );

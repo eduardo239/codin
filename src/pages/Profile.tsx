@@ -4,6 +4,11 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../helpers/firebase";
 import { useUser } from "../context/UserContext";
 import { TUserAnswers } from "../helpers/type";
+import {
+  MdOutlineAvTimer,
+  MdOutlineChecklist,
+  MdOutlineDoneAll,
+} from "react-icons/md";
 
 const Profile = () => {
   const { user } = useUser();
@@ -89,20 +94,22 @@ const Profile = () => {
       <p>
         user ID: <span>{user?.uid}</span>
       </p>
-
       <hr />
 
       <Progress
+        icon={<MdOutlineChecklist />}
         title={`Respostas Corretas: ${userCorrectAnswers}`}
         value={userCorrectAnswers / userTotalAnswers}
       />
 
       <Progress
+        icon={<MdOutlineDoneAll />}
         title={`Questões Finalizadas: ${userTotalAnswers}`}
         value={userTotalAnswers / totalQuestions}
       />
 
       <Progress
+        icon={<MdOutlineAvTimer />}
         title={`Tempo médio ${userAverageTime.toFixed(2)} segundos.`}
         value={userAverageTime / 100}
       />

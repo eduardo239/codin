@@ -5,14 +5,16 @@ import Button from "../components/form/Button";
 import { OrderByDirection } from "firebase/firestore";
 import ChallengeItem from "../components/challenge/ChallengeItem";
 import LanguageList from "../components/challenge/LanguageList";
+import { useData } from "../context/DataContext";
 
 const AllChallenges = () => {
+  const { totalQuestions } = useData();
+
   const [questions, setQuestions] = useState<IQuestion[]>([]);
   const [language, setLanguage] = useState("");
   const [order, setOrder] = useState<OrderByDirection | undefined>("desc");
   const [limit, setLimit] = useState(1);
-
-  const [totalPerLimitDocs, setTotalPerLimitDocs] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(3);
 
   const getAllQuestions = async () => {
     const response = await getAllPaginatedDocs(language, limit, order);
@@ -29,21 +31,30 @@ const AllChallenges = () => {
     }
   };
 
+  const paginationButtons = () => {
+    return Array.from(Array(Math.round(Math.round(totalQuestions))), (v, k) => {
+      return (
+        <Button key={k} small onClick={() => setLimit(k + 1)}>
+          {k + 1}
+        </Button>
+      );
+    });
+  };
+
   useEffect(() => {
     getAllQuestions();
-
-    (async () => {
-      setTotalPerLimitDocs((await getCountDocs()) / 3);
-    })();
-
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language, order, limit]);
+
   return (
     <div>
       <h1>Todas as Questões</h1>
       <p>Aqui você encontra todos os desafios.</p>
+      <p>Total de desafios: {totalQuestions}</p>
 
+      <div className="flex gap-1">{paginationButtons()}</div>
+      <br />
       <div className="flex gap-1">
         <Button small onClick={() => setLimit(1)}>
           1 Itens
@@ -59,7 +70,6 @@ const AllChallenges = () => {
         </Button>
       </div>
       <br />
-
       <div className="flex gap-1">
         <Button small onClick={() => setOrder("asc")}>
           Asc
@@ -72,15 +82,20 @@ const AllChallenges = () => {
       <div className="flex gap-1">
         <LanguageList setLanguage={setLanguage} />
       </div>
-
       <hr />
       <div>
         <code>
           Busca:{" "}
-          {language + " | " + order + " | " + limit + " | " + totalPerLimitDocs}
+          {"L " +
+            language +
+            " | O " +
+            order +
+            " | L " +
+            limit +
+            " | IPP " +
+            itemsPerPage}
         </code>
       </div>
-
       <hr />
       <div className="flex flex-column">
         {questions && questions.length > 0 ? (

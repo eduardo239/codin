@@ -25,6 +25,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "./firebase";
+import { COLL_ANSWER, COLL_QUESTION } from "./constants";
 
 export const userRegister = async (user: TUser): Promise<User> => {
   const auth = getAuth();
@@ -80,7 +81,7 @@ export const getAllPaginatedDocs = async (
   limit_: number,
   order_?: OrderByDirection | undefined
 ) => {
-  const questionRef = collection(db, "question");
+  const questionRef = collection(db, COLL_QUESTION);
 
   const _where: QueryFieldFilterConstraint = where("language", "==", language);
   const _order: QueryOrderByConstraint = orderBy("timestamp", order_);
@@ -131,7 +132,7 @@ export const getAllPaginatedDocs = async (
 };
 
 export const getChallenge = async (id: string) => {
-  const docRef = doc(db, "question", id);
+  const docRef = doc(db, COLL_QUESTION, id);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
@@ -142,7 +143,7 @@ export const getChallenge = async (id: string) => {
 };
 
 export const getCountDocs = async () => {
-  const questionRef = collection(db, "question");
+  const questionRef = collection(db, COLL_QUESTION);
   const snapshot = await getCountFromServer(questionRef);
   return snapshot.data().count;
 };
@@ -151,7 +152,7 @@ export const handleSubmitChallenge = async (
   challenge: TChallenge,
   alternatives: string[]
 ) => {
-  const queRef = await addDoc(collection(db, "question"), {
+  const queRef = await addDoc(collection(db, COLL_QUESTION), {
     title: challenge.title,
     language: challenge.language,
     code: challenge.code,
@@ -162,7 +163,7 @@ export const handleSubmitChallenge = async (
   });
   console.log("Document written with ID: ", queRef.id);
 
-  const ansRef = await addDoc(collection(db, "answer"), {
+  const ansRef = await addDoc(collection(db, COLL_ANSWER), {
     questionId: queRef.id,
     correct: parseFloat(challenge.correct),
   });
@@ -176,7 +177,7 @@ export const handleSubmitAnswer = async (
   selectedOption: string
 ) => {
   if (selectedOption && id) {
-    const q = query(collection(db, "answer"), where("questionId", "==", id));
+    const q = query(collection(db, COLL_ANSWER), where("questionId", "==", id));
     const querySnapshot = await getDocs(q);
 
     let isCorrect = false;
@@ -207,7 +208,7 @@ export function formatDate(date: Date) {
 
 export const deleteDocById = async (id: string) => {
   try {
-    await deleteDoc(doc(db, "question", id));
+    await deleteDoc(doc(db, COLL_QUESTION, id));
   } catch (error) {
     console.log(error);
   }

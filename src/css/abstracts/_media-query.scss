@@ -12,13 +12,23 @@
     width: 80px;
     height: 80px;
   }
-
   .node-container {
     display: grid;
     grid-template-columns: 1fr;
   }
-
   .order-1 {
     order: -1;
+  }
+  .footer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer-menu {
+    margin-bottom: $spacing-lg;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .footer {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
