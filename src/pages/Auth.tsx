@@ -13,11 +13,13 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Logo from "../components/ui/Logo";
+import { useData } from "../context/DataContext";
 
 const Auth = () => {
   const navigate = useNavigate();
 
   const { user, setUser } = useUser();
+  const { handleMessage } = useData();
   const [, setLocal] = useLocalStorage("user", "");
 
   const [email, setEmail] = useState<string | number>("");
@@ -26,29 +28,61 @@ const Auth = () => {
   const registerNewUser = async () => {
     const isEmailString = typeof email === "string";
     const isPasswordString = typeof password === "string";
-    const response = await userRegister({
-      email: isEmailString ? email : email.toString(),
-      password: isPasswordString ? password : password.toString(),
-    });
-    if (response) {
-      setUser(response);
-      setLocal(JSON.stringify(response));
-    } else alert("register error");
+
+    try {
+      const response = await userRegister({
+        email: isEmailString ? email : email.toString(),
+        password: isPasswordString ? password : password.toString(),
+      });
+      if (response) {
+        setUser(response);
+        setLocal(JSON.stringify(response));
+        handleMessage(`Registro efetuado com sucesso.`, "success");
+      }
+    } catch (e: unknown) {
+      if (typeof e === "string") {
+        // handle string error
+        //console.log(e);
+      } else if (e instanceof Error) {
+        //console.log(e.name);
+        handleMessage(`${e.message}`, "error");
+        //console.log(e.stack);
+      } else {
+        //console.error(e);
+      }
+    }
   };
 
   const loginUser = async () => {
     const isEmailString = typeof email === "string";
     const isPasswordString = typeof password === "string";
-    const user = {
-      email: isEmailString ? email : email.toString(),
-      password: isPasswordString ? password : password.toString(),
-    };
-    const response = await userLogin(user);
-    if (response) {
-      setUser(response);
-      setLocal(JSON.stringify(response));
-      navigate("/");
-    } else alert("login error");
+
+    try {
+      const user = {
+        email: isEmailString ? email : email.toString(),
+        password: isPasswordString ? password : password.toString(),
+      };
+      const response = await userLogin(user);
+      if (response) {
+        setUser(response);
+        setLocal(JSON.stringify(response));
+
+        handleMessage(`Login efetuado com sucesso.`, "success");
+
+        navigate("/");
+      }
+    } catch (e: unknown) {
+      if (typeof e === "string") {
+        // handle string error
+        //console.log(e);
+      } else if (e instanceof Error) {
+        //console.log(e.name);
+        handleMessage(`${e.message}`, "error");
+        //console.log(e.stack);
+      } else {
+        //console.error(e);
+      }
+    }
   };
 
   useEffect(() => {

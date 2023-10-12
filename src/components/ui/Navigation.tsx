@@ -10,9 +10,11 @@ import {
   MdOutlineLogout,
   MdPlusOne,
 } from "react-icons/md";
+import { useData } from "../../context/DataContext";
 
 const Navigation = () => {
   const { user, setUser } = useUser();
+  const { handleMessage } = useData();
 
   const navigate = useNavigate();
 
@@ -20,6 +22,8 @@ const Navigation = () => {
     await logoutUser();
     setUser(null);
     navigate("/auth");
+
+    handleMessage(`Você saiu da conta.`, "success");
   };
 
   return (
