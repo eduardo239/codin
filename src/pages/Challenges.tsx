@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { deleteDocById, getAllPaginatedDocs, getCountDocs } from "../helpers";
+import { deleteDocById, getAllPaginatedDocs } from "../helpers";
 import { IQuestion } from "../helpers/type";
 import Button from "../components/form/Button";
 import { OrderByDirection } from "firebase/firestore";
