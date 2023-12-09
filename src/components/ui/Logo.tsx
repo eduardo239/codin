@@ -18,7 +18,8 @@ const Logo = ({
           : size === "md"
           ? "logo-md"
           : "logo-md"
-      }`}
+      } `}
+      style={{ textAlign: "center" }}
       onClick={() => navigate("/")}
     >
       <svg
